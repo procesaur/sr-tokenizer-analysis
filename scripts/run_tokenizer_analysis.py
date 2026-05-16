@@ -76,9 +76,9 @@ def create_sample_configs() -> Dict[str, Dict]:
             "class": "huggingface",
             "path": "sample_tokenizers/bpe.json"
         },
-        "original_bpe": {
+        "ts_bpe": {
             "class": "huggingface",
-            "path": "sample_tokenizers/original_bpe.json"
+            "path": "sample_tokenizers/ts_bpe.json"
         },
         "MiRe_bpe": {
             "class": "huggingface",

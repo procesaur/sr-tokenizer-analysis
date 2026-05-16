@@ -20,7 +20,7 @@ suffix_vocab_size = 200
 latin = True
 base_bpe= False
 srna = False
-original_bpe = True
+ts_bpe = True
 MiRe_bpe = True
 end_suffix = "Ġ"
 initial_alphabet=pre_tokenizers.ByteLevel.alphabet()
@@ -113,7 +113,7 @@ def train_srna(dataset, latin=True):
         tokenizer.save("../sample_tokenizers/srna_c.json")
 
 
-def train_original_bpe(dataset, latin=True):
+def train_ts_bpe(dataset, latin=True):
     tokenizer = Tokenizer(models.BPE(ignore_merges=True))
     tokenizer.pre_tokenizer = pre_tokenizers.Sequence([
         pre_tokenizers.Whitespace(),
@@ -128,9 +128,9 @@ def train_original_bpe(dataset, latin=True):
     )
     tokenizer.train_from_iterator(batch_iterator(dataset), trainer=trainer)
     if latin:
-        tokenizer.save("../sample_tokenizers/original_bpe.json")
+        tokenizer.save("../sample_tokenizers/ts_bpe.json")
     else:
-        tokenizer.save("../sample_tokenizers/original_bpe_c.json")
+        tokenizer.save("../sample_tokenizers/ts_bpe_c.json")
 
 
 def process_example(example):
@@ -163,10 +163,10 @@ def init_worker(tokenizerx, suffix):
 def train_MiRe_bpe(dataset, latin=True):
     global tokenizer
     if latin:
-        with open("../sample_tokenizers/original_bpe.json", "r", encoding="utf-8") as f:
+        with open("../sample_tokenizers/ts_bpe.json", "r", encoding="utf-8") as f:
             data = load(f)
     else:
-        with open("../sample_tokenizers/original_bpe_c.json", "r", encoding="utf-8") as f:
+        with open("../sample_tokenizers/ts_bpe_c.json", "r", encoding="utf-8") as f:
             data = load(f)      
 
 
@@ -224,6 +224,6 @@ if __name__ == "__main__":
 
         train_bpe(dataset, latin=x)
         train_srna(dataset, latin=x)
-        train_original_bpe(dataset, latin=x)
+        train_ts_bpe(dataset, latin=x)
         train_MiRe_bpe(dataset, latin=x)
       
