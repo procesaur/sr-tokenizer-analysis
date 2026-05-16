@@ -1,7 +1,7 @@
 from datasets import load_dataset, load_from_disk
 from tokenizers import Tokenizer, models, trainers, pre_tokenizers, normalizers, Regex, AddedToken
 from collections import Counter
-from tokenization_srna import SrnaTokenizer
+from ..custom.tokenization_srna import SrnaTokenizer
 from tqdm import tqdm
 from json import load, dump
 from multiprocessing import Pool
