@@ -59,12 +59,12 @@ def get_colors(n_items: int) -> List[str]:
 def get_metric_display_name(metric_key: str) -> str:
     """Get display name for a metric."""
     metric_names = {
-        'fertility': 'Fertility',
-        'compression_ratio': 'Compression Rate',
-        'vocabulary_utilization': 'Vocabulary Utilization',
-        'tokenizer_fairness_gini': 'Gini Coefficient',
-        'morphscore': 'MorphScore',
-        'unk_percentage': 'UNK Percentage'
+        'fertility': 'Fertility (Lower is better)',
+        'compression_ratio': 'Compression Rate (Higher is better)',
+        'vocabulary_utilization': 'Vocabulary Utilization (Higher is better)',
+        'tokenizer_fairness_gini': 'Gini Coefficient (Lower is better)',
+        'morphscore': 'MorphScore (Higher is better)',
+        'unk_percentage': 'UNK Percentage (Lower is better)'
     }
     return metric_names.get(metric_key, metric_key.replace('_', ' ').title())
 

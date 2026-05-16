@@ -8,12 +8,17 @@ from .input_types import (
     InputProvider, TokenizedData, InputSpecification, 
     VocabularyProvider
 )
+from custom.tokenization_srna import SrnaTokenizer
 
 if TYPE_CHECKING:
     from .tokenizer_wrapper import TokenizerWrapper
 
 logger = logging.getLogger(__name__)
 
+_CUSTOM_TOKENIZER_REGISTRY: Dict[str, type] = {
+    'srna': SrnaTokenizer().prepare_for_tokenization,
+    'srna2': SrnaTokenizer().prepare_for_tokenization
+}
 
 class RawTokenizationProvider(InputProvider):
     """Provider that tokenizes raw text on demand."""
@@ -71,9 +76,11 @@ class RawTokenizationProvider(InputProvider):
                             logger.debug(f"Empty text for {language}, skipping")
                             continue
                         
+                        if tok_name in _CUSTOM_TOKENIZER_REGISTRY:
                         # Tokenize the text using TokenizerWrapper interface
-                        tokens = spec.tokenizer.encode(text)
-                        
+                            tokens = spec.tokenizer.encode(_CUSTOM_TOKENIZER_REGISTRY[tok_name](text))
+                        else:
+                            tokens = spec.tokenizer.encode(text)
                         # Validate tokens are integers
                         if not isinstance(tokens, list) or not all(isinstance(t, int) for t in tokens):
                             logger.error(f"Tokens for {language} are not a list of integers: {type(tokens)} - {tokens}")

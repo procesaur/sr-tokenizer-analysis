@@ -27,6 +27,8 @@ from tokenizer_analysis.constants import (
     MIN_TOKENIZERS_FOR_PLOTS
 )
 from tokenizer_analysis.visualization.visualization_config import LaTeXFormatting
+from datasets import load_dataset
+from conversion import convert
 
 # Setup environment
 setup_environment()
@@ -51,70 +53,73 @@ def load_config_from_file(config_path: str) -> Dict:
 
 def create_sample_configs() -> Dict[str, Dict]:
     """Create sample tokenizer configurations for testing."""
+    #return {
+     #   "MiRe_bpe": {
+      #      "class": "huggingface",
+       #     "path": "sample_tokenizers/MiRe_bpe.json"
+        #},
+    #}
     return {
+        "qwen3.5": {
+            "class": "huggingface",
+            "path": "Qwen/Qwen3.5-0.8B"
+        },
+        "mistral": {
+            "class": "huggingface",
+            "path": "mistralai/Leanstral-2603"
+        },
+        "modernbertic": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/modernbertic.json"
+        },
         "bpe": {
             "class": "huggingface",
             "path": "sample_tokenizers/bpe.json"
         },
-        "unigramlm": {
+        "original_bpe": {
             "class": "huggingface",
-            "path": "sample_tokenizers/unigramlm.json"
-        }
+            "path": "sample_tokenizers/original_bpe.json"
+        },
+        "MiRe_bpe": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/MiRe_bpe.json"
+        },       
+        "srna": {
+            "class": "srna",
+            "path": "sample_tokenizers/srna2.json"
+        },
     }
+
+
+def download_data(file_path="parallel/sr/test.txt", dataset_name="procesaur/sr-tokenizer-test", split="test", lat_file_path="parallel/srl/test.txt"):
+    print("Downloading testing data")
+    dataset = load_dataset(dataset_name, split=split, streaming=True)
+    with open(file_path, "w", encoding="utf-8") as f1, open(lat_file_path, "w", encoding="utf-8") as f2:  
+        for i, item in enumerate(dataset):
+            text = item.get("text", "")
+            f2.write(convert(text))
+            f1.write(text)
 
 
 def create_sample_language_metadata() -> str:
     """Create sample LanguageMetadata configuration and return path to temp file."""
     import tempfile
+
+    if not os.listdir("parallel/sr/") and not os.listdir("parallel/srl/"):
+        download_data()
     
     sample_metadata = {
         "languages": {
-            "eng_Latn": {
-                "name": "English",
-                "iso_code": "en", 
-                "data_path": "parallel/en/eval.txt"
+            "srp_Latn": {
+                "name": "Serbian",
+                "iso_code": "srl",
+                "data_path": "parallel/srl/test.txt"
             },
-            "spa_Latn": {
-                "name": "Spanish",
-                "iso_code": "es",
-                "data_path": "parallel/es/eval.txt"
-            },
-            "deu_Latn": {
-                "name": "German", 
-                "iso_code": "de",
-                "data_path": "parallel/de/eval.txt"
-            },
-            "arb_Arab": {
-                "name": "Arabic",
-                "iso_code": "ar",
-                "data_path": "parallel/ar/eval.txt"
-            },
-            "rus_Cyrl": {
-                "name": "Russian",
-                "iso_code": "ru",
-                "data_path": "parallel/ru/eval.txt"
-            }
-        },
-        "analysis_groups": {
-            "script_family": {
-                "Latin": ["eng_Latn", "spa_Latn", "deu_Latn"],
-                "Arabic": ["arb_Arab"],
-                "Cyrillic": ["rus_Cyrl"]
-            },
-            "resource_level": {
-                "high": ["eng_Latn", "spa_Latn", "deu_Latn"],
-                "medium": ["arb_Arab", "rus_Cyrl"],
-                "low": []
-            },
-            "geographic_region": {
-                "Western_Europe": ["eng_Latn", "spa_Latn", "deu_Latn"],
-                "Middle_East": ["arb_Arab"],
-                "Eastern_Europe": ["rus_Cyrl"]
-            },
-            "language_family": {
-                "Indo_European": ["eng_Latn", "spa_Latn", "deu_Latn", "rus_Cyrl"],
-                "Afro_Asiatic": ["arb_Arab"]
-            }
+            #"srp_Cyrl": {
+             #   "name": "Serbian",
+              #  "iso_code": "sr",
+               # "data_path": "parallel/sr/test.txt"
+            #},
         }
     }
     
@@ -323,7 +328,8 @@ Examples:
     parser.add_argument(
         "--morphscore",
         action="store_true",
-        help="Enable MorphScore analysis with default settings (requires raw tokenization)"
+        help="Enable MorphScore analysis with default settings (requires raw tokenization)",
+        default=True
     )
     parser.add_argument(
         "--morphscore-data-dir",
@@ -339,7 +345,8 @@ Examples:
     parser.add_argument(
         "--use-sample-data",
         action="store_true",
-        help="Use sample/demo data for testing"
+        help="Use sample/demo data for testing",
+        default=True
     )
     
     # NEW: Pre-tokenized data support
@@ -424,7 +431,8 @@ Examples:
     parser.add_argument(
         "--generate-latex-tables",
         action="store_true",
-        help="Generate LaTeX tables for analysis results"
+        help="Generate LaTeX tables for analysis results",
+        default=True
     )
     parser.add_argument(
         "--latex-table-types",

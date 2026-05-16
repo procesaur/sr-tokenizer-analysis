@@ -327,21 +327,31 @@ def load_from_text(text_file: str, max_texts: int) -> List[str]:
     """
     texts = []
     
-    try:
+    try: 
         with open(text_file, 'r', encoding=DEFAULT_ENCODING, errors=FileFormats.ERROR_HANDLING) as f:
-            content = f.read().strip()
             
+            content = f.read().strip()
             if not content:
                 return []
-            
+        
             # Normalize content for consistent processing
             content = normalize_text_for_processing(content)
-            
+        
             # Use shared text extraction logic
             texts = extract_texts_with_fallback_strategies(content, max_texts)
-    
-    except Exception as e:
-        logger.error(f"Error reading text file {text_file}: {e}")
-        return []
+    except:
+        try:
+            with open(text_file, 'r', encoding=DEFAULT_ENCODING, errors=FileFormats.ERROR_HANDLING) as f:
+
+                texts = []
+                for i, line in enumerate(f):
+                    if i >= max_texts:
+                        break
+                    content = normalize_text_for_processing(line)
+                    texts.append(content)
+
+        except Exception as e:
+            logger.error(f"Error reading text file {text_file}: {e}")
+            return []
     
     return texts
