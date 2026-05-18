@@ -9,6 +9,7 @@ from .input_types import (
     VocabularyProvider
 )
 from custom.tokenization_srna import SrnaTokenizer
+from custom.serbian_preprocessor import SerbianPreprocessor, SerbianPreprocessor2
 
 if TYPE_CHECKING:
     from .tokenizer_wrapper import TokenizerWrapper
@@ -17,7 +18,9 @@ logger = logging.getLogger(__name__)
 
 _CUSTOM_TOKENIZER_REGISTRY: Dict[str, type] = {
     'srna': SrnaTokenizer().prepare_for_tokenization,
-    'srna2': SrnaTokenizer().prepare_for_tokenization
+    'srna2': SrnaTokenizer().prepare_for_tokenization,
+    'morfotok': SerbianPreprocessor,
+    'morfotok2': SerbianPreprocessor2,
 }
 
 class RawTokenizationProvider(InputProvider):

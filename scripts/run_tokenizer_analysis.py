@@ -62,11 +62,11 @@ def create_sample_configs() -> Dict[str, Dict]:
     return {
         "qwen3.5": {
             "class": "huggingface",
-            "path": "Qwen/Qwen3.5-0.8B"
+            "path": "sample_tokenizers/qwen.json"
         },
         "mistral": {
             "class": "huggingface",
-            "path": "mistralai/Leanstral-2603"
+            "path": "sample_tokenizers/mistral.json"
         },
         "modernbertic": {
             "class": "huggingface",
@@ -80,13 +80,37 @@ def create_sample_configs() -> Dict[str, Dict]:
             "class": "huggingface",
             "path": "sample_tokenizers/ts_bpe.json"
         },
+        "MiRe_bpe_control": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/MiRe_bpe_control.json"
+        },   
         "MiRe_bpe": {
             "class": "huggingface",
             "path": "sample_tokenizers/MiRe_bpe.json"
-        },       
+        },  
+        "MiEn_bpe": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/MiEn_bpe.json"
+        },
         "srna": {
             "class": "srna",
+            "path": "sample_tokenizers/srna.json"
+        },
+        "srna2": {
+            "class": "srna",
             "path": "sample_tokenizers/srna2.json"
+        },
+        "Morfotok_base": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/Morfotok_base.json"
+        },
+        "Morfotok": {
+            "class": "morfotok",
+            "path": "sample_tokenizers/Morfotok.json"
+        },
+        "Morfotok+": {
+            "class": "morfotok2",
+            "path": "sample_tokenizers/MorfoTok_plus.json"
         },
     }
 
