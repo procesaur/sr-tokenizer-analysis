@@ -28,7 +28,6 @@ srnatok = SrnaTokenizer(
     cap_token = cap_token,
     up_token = up_token
 )
-MiRe_cutoff = 768
 
 
 def get_dataset(latin, test=False):
@@ -121,29 +120,34 @@ def train_ts_bpe(dataset, latin=True):
         tokenizer.save("sample_tokenizers/ts_bpe_c.json")
 
 
-def train_MiRe_bpe(dataset, latin=True):
-    tokenizer = create_base_tokenizer()
-    counter = token_freq(dataset, tokenizer)
-    tokenizer = update_tokens_from_count(tokenizer, counter, vocab_size)
-
-    if latin:
-        tokenizer.save("sample_tokenizers/MiRe_bpe.json")
-    else:
-        tokenizer.save("sample_tokenizers/MiRe_bpe_c.json")
+def build_MiRe_bpe(dataset, cutoffs, latin=True):
+    for name, cutoff in cutoffs.items():
+        tokenizer = create_base_tokenizer(cutoff)
+        counter = token_freq(dataset, tokenizer)
+        tokenizer = update_tokens_from_count(tokenizer, counter, vocab_size)
+        if latin:
+            tokenizer.save(f"sample_tokenizers/MiRe_bpe{name}.json")
+        else:
+            tokenizer.save(f"sample_tokenizers/MiRe_bpe{name}_c.json")
 
 
 if __name__ == "__main__":
+    # HR_inspect(dataset, x, merge=True) # Find cutoffs
+    # HR_inspect(dataset, x, merge=False) # Find cutoffs
+    cutoffs = {
+        "_control":768,
+        "": 291,
+        "_mien": 461,
+        "_control2": 1014
+    }
+
     latins = [True, False]
     for x in latins:
         dataset = get_dataset(latin=x)
-        dataset = dataset.select(range(2000))
-
-        HR_inspect(dataset, x, merge=True)
-        HR_inspect(dataset, x, merge=False)
+        #dataset = dataset.select(range(2000))
 
         #train_bpe(dataset, latin=x)
         #train_srna(dataset, latin=x)
         #train_ts_bpe(dataset, latin=x)
-
-        #train_MiRe_bpe(dataset, latin=x)
+        build_MiRe_bpe(dataset, cutoffs, latin=x)
       

@@ -92,8 +92,7 @@ def create_base_tokenizer(cutoff, latin=True):
 
 
 def update_tokens_from_count(tokenizer, counter, vocab_size):
-    scores = {seq: freq * len(seq) for seq, freq in counter.items()}
-    top_sequences = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:vocab_size]
+    top_sequences = sorted(counter.items(), key=lambda x: x[1], reverse=True)[:vocab_size]
     new_tokens = [create_added_token(seq) for seq, _ in top_sequences]
     
     token_iterator = iter(new_tokens)
