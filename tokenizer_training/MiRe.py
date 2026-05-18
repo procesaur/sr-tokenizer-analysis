@@ -107,6 +107,7 @@ def update_tokens_from_count(tokenizer, counter, vocab_size):
             added_count = tokenizer.add_tokens([token])
             if added_count > 0:
                 pbar.update(1)
+    return tokenizer
 
 
 def token_freq(dataset, tok, merge=True):
