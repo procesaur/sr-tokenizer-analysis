@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{Comprehensive Tokenizer Analysis}
+\label{tab:comprehensive_metrics}
+% Requires \usepackage{makecell} in preamble
+\begin{tabular}{lcccccccccccc}
+\toprule
+Tokenizer & Fertility & \makecell{Vocab \\ Utilization} & \makecell{Type-Token \\ Ratio} & \makecell{Rényi Entropy \\ ($\alpha$=1)} & \makecell{Rényi Entropy \\ ($\alpha$=2.5)} & \makecell{Gini \\ Coefficient} & \makecell{MorphScore \\ Recall} & \makecell{MorphScore \\ Precision} & Avg Token Rank & Token Length & Tokens per Line & \makecell{Compression \\ Ratio} \\
+\midrule
+qwen3.5 & 0.335 & 14.5\% & 0.0054 & 10.60 & \textbf{7.64} & \textbf{0.000} & 0.312 & 0.126 & 1022.5 & 2.92 & 333.7 & 0.0066 \\
+mistral & 0.331 & 24.8\% & 0.0049 & 10.61 & 7.61 & 0.000 & 0.140 & 0.065 & 979.9 & 2.96 & 328.5 & 0.0067 \\
+modernbertic & 0.236 & 91.0\% & \textbf{0.0099} & \textbf{11.87} & 6.83 & 0.000 & \textbf{0.837} & \textbf{0.789} & 3949.4 & 4.26 & 231.8 & 0.0095 \\
+bpe & 0.239 & \textbf{97.9\%} & 0.0062 & 11.73 & 6.87 & 0.000 & 0.156 & 0.101 & 3167.3 & 4.20 & 235.8 & 0.0095 \\
+original\_bpe & \textbf{0.236} & 96.4\% & 0.0062 & 11.67 & 6.81 & 0.000 & 0.705 & 0.686 & 3136.6 & \textbf{4.26} & 232.9 & \textbf{0.0096} \\
+MiRe\_bpe & 0.339 & 68.6\% & 0.0030 & 9.19 & 5.80 & 0.000 & 0.057 & 0.057 & \textbf{807.5} & 2.91 & \textbf{338.2} & 0.0066 \\
+srna & 0.243 & 96.7\% & 0.0061 & 11.46 & 6.70 & 0.000 & 0.208 & 0.151 & 3099.6 & 4.14 & 239.3 & 0.0093 \\
+\bottomrule
+\end{tabular}
+\end{table}
