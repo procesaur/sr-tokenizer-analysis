@@ -10,7 +10,7 @@ def create_added_token(token):
     return AddedToken(
         token, 
         normalized=False,  # CRITICAL: Prevents pre-processing/lowercasing/spacing changes
-        special=True,      # CRITICAL: Keeps it completely atomic during tokenization splits
+        special=False,      # CRITICAL: Keeps it completely atomic during tokenization splits
         single_word=False   # Ensures it acts as an un-splittable block
     )
 

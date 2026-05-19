@@ -1,6 +1,66 @@
 {
   "fertility": {
     "per_tokenizer": {
+      "modernbertic": {
+        "global": {
+          "mean": 0.2411139478819189,
+          "median": 0.23201408533569945,
+          "std": 0.05482695176856846,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": {
+            "mean": 0.2411139478819189,
+            "median": 0.23201408533569945,
+            "std": 0.05482695176856846,
+            "std_err": 0.0017346479884624455,
+            "min": 0.14099783080260303,
+            "max": 0.9572649572649573,
+            "count": 1000,
+            "sum": 241.1139478819189
+          }
+        }
+      },
+      "bpe": {
+        "global": {
+          "mean": 0.23834893684099207,
+          "median": 0.22895622895622897,
+          "std": 0.05003343823293899,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": {
+            "mean": 0.23834893684099207,
+            "median": 0.22895622895622897,
+            "std": 0.05003343823293899,
+            "std_err": 0.0015829879317927607,
+            "min": 0.13076923076923078,
+            "max": 0.47863247863247865,
+            "count": 1000,
+            "sum": 238.34893684099205
+          }
+        }
+      },
+      "srna": {
+        "global": {
+          "mean": 0.24669775247003772,
+          "median": 0.237632079869474,
+          "std": 0.05199997187913554,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": {
+            "mean": 0.24669775247003772,
+            "median": 0.237632079869474,
+            "std": 0.05199997187913554,
+            "std_err": 0.0016452063029328864,
+            "min": 0.13076923076923078,
+            "max": 0.4791666666666667,
+            "count": 1000,
+            "sum": 246.69775247003773
+          }
+        }
+      },
       "MiRe_bpe": {
         "global": {
           "mean": 0.32711080147462906,
@@ -20,18 +80,232 @@
             "sum": 327.11080147462906
           }
         }
+      },
+      "Morfotok": {
+        "global": {
+          "mean": 0.3616554175796432,
+          "median": 0.3523713935222801,
+          "std": 0.05237012237723156,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": {
+            "mean": 0.3616554175796432,
+            "median": 0.3523713935222801,
+            "std": 0.05237012237723156,
+            "std_err": 0.00165691734642954,
+            "min": 0.23684210526315788,
+            "max": 0.5854700854700855,
+            "count": 1000,
+            "sum": 361.6554175796432
+          }
+        }
+      },
+      "ts_bpe": {
+        "global": {
+          "mean": 0.23409559292374724,
+          "median": 0.2244558597889875,
+          "std": 0.04901720724855921,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": {
+            "mean": 0.23409559292374724,
+            "median": 0.2244558597889875,
+            "std": 0.04901720724855921,
+            "std_err": 0.001550835806314244,
+            "min": 0.1328125,
+            "max": 0.47435897435897434,
+            "count": 1000,
+            "sum": 234.09559292374726
+          }
+        }
       }
     },
-    "pairwise_comparisons": {},
+    "pairwise_comparisons": {
+      "modernbertic_vs_bpe": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "bpe",
+        "value_1": 0.2411139478819189,
+        "value_2": 0.23834893684099207,
+        "difference": 0.002765011040926829,
+        "ratio": 1.0116006854386408,
+        "percent_difference": 1.153378552971737
+      },
+      "modernbertic_vs_srna": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "srna",
+        "value_1": 0.2411139478819189,
+        "value_2": 0.24669775247003772,
+        "difference": -0.005583804588118829,
+        "ratio": 0.9773658068133515,
+        "percent_difference": 2.2893278632267773
+      },
+      "modernbertic_vs_MiRe_bpe": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "MiRe_bpe",
+        "value_1": 0.2411139478819189,
+        "value_2": 0.32711080147462906,
+        "difference": -0.08599685359271017,
+        "ratio": 0.7371017612227025,
+        "percent_difference": 30.268605403088177
+      },
+      "modernbertic_vs_Morfotok": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.2411139478819189,
+        "value_2": 0.3616554175796432,
+        "difference": -0.12054146969772431,
+        "ratio": 0.666695246805811,
+        "percent_difference": 39.99588453053561
+      },
+      "modernbertic_vs_ts_bpe": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.2411139478819189,
+        "value_2": 0.23409559292374724,
+        "difference": 0.0070183549581716576,
+        "ratio": 1.0299807222789443,
+        "percent_difference": 2.9537937922175552
+      },
+      "bpe_vs_srna": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "srna",
+        "value_1": 0.23834893684099207,
+        "value_2": 0.24669775247003772,
+        "difference": -0.008348815629045658,
+        "ratio": 0.9661577150766315,
+        "percent_difference": 3.442479172841891
+      },
+      "bpe_vs_MiRe_bpe": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "MiRe_bpe",
+        "value_1": 0.23834893684099207,
+        "value_2": 0.32711080147462906,
+        "difference": -0.088761864633637,
+        "ratio": 0.7286489341425143,
+        "percent_difference": 31.394583422699153
+      },
+      "bpe_vs_Morfotok": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.23834893684099207,
+        "value_2": 0.3616554175796432,
+        "difference": -0.12330648073865114,
+        "ratio": 0.6590498171882169,
+        "percent_difference": 41.10186195489064
+      },
+      "bpe_vs_ts_bpe": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.23834893684099207,
+        "value_2": 0.23409559292374724,
+        "difference": 0.004253343917244828,
+        "ratio": 1.0181692609592625,
+        "percent_difference": 1.8005685955821495
+      },
+      "srna_vs_MiRe_bpe": {
+        "tokenizer_1": "srna",
+        "tokenizer_2": "MiRe_bpe",
+        "value_1": 0.24669775247003772,
+        "value_2": 0.32711080147462906,
+        "difference": -0.08041304900459134,
+        "ratio": 0.7541718321679199,
+        "percent_difference": 28.027832088521183
+      },
+      "srna_vs_Morfotok": {
+        "tokenizer_1": "srna",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.24669775247003772,
+        "value_2": 0.3616554175796432,
+        "difference": -0.11495766510960548,
+        "ratio": 0.6821348180570538,
+        "percent_difference": 37.793068490205286
+      },
+      "srna_vs_ts_bpe": {
+        "tokenizer_1": "srna",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.24669775247003772,
+        "value_2": 0.23409559292374724,
+        "difference": 0.012602159546290487,
+        "ratio": 1.053833390833613,
+        "percent_difference": 5.242235429015317
+      },
+      "MiRe_bpe_vs_Morfotok": {
+        "tokenizer_1": "MiRe_bpe",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.32711080147462906,
+        "value_2": 0.3616554175796432,
+        "difference": -0.034544616105014136,
+        "ratio": 0.9044819614864286,
+        "percent_difference": 10.030868282839563
+      },
+      "MiRe_bpe_vs_ts_bpe": {
+        "tokenizer_1": "MiRe_bpe",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.32711080147462906,
+        "value_2": 0.23409559292374724,
+        "difference": 0.09301520855088183,
+        "ratio": 1.3973385717738822,
+        "percent_difference": 33.14830674750093
+      },
+      "Morfotok_vs_ts_bpe": {
+        "tokenizer_1": "Morfotok",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.3616554175796432,
+        "value_2": 0.23409559292374724,
+        "difference": 0.12755982465589596,
+        "ratio": 1.5449048530249199,
+        "percent_difference": 42.82320043338643
+      }
+    },
     "per_language": {}
   },
   "token_length": {
     "per_tokenizer": {
-      "MiRe_bpe": {}
+      "modernbertic": {},
+      "bpe": {},
+      "srna": {},
+      "MiRe_bpe": {},
+      "Morfotok": {},
+      "ts_bpe": {}
     }
   },
   "vocabulary_utilization": {
     "per_tokenizer": {
+      "modernbertic": {
+        "global_utilization": 0.39000874681933845,
+        "per_language": {
+          "srp_Latn": {
+            "utilization": 0.39000874681933845,
+            "used_tokens": 19619,
+            "vocab_size": 50304,
+            "unused_tokens": 30685
+          }
+        }
+      },
+      "bpe": {
+        "global_utilization": 0.5760333333333333,
+        "per_language": {
+          "srp_Latn": {
+            "utilization": 0.5760333333333333,
+            "used_tokens": 17281,
+            "vocab_size": 30000,
+            "unused_tokens": 12719
+          }
+        }
+      },
+      "srna": {
+        "global_utilization": 0.5535666666666667,
+        "per_language": {
+          "srp_Latn": {
+            "utilization": 0.5535666666666667,
+            "used_tokens": 16607,
+            "vocab_size": 30000,
+            "unused_tokens": 13393
+          }
+        }
+      },
       "MiRe_bpe": {
         "global_utilization": 0.35456666666666664,
         "per_language": {
@@ -42,30 +316,120 @@
             "unused_tokens": 19363
           }
         }
+      },
+      "Morfotok": {
+        "global_utilization": 0.5006,
+        "per_language": {
+          "srp_Latn": {
+            "utilization": 0.5006,
+            "used_tokens": 15018,
+            "vocab_size": 30000,
+            "unused_tokens": 14982
+          }
+        }
+      },
+      "ts_bpe": {
+        "global_utilization": 0.5654666666666667,
+        "per_language": {
+          "srp_Latn": {
+            "utilization": 0.5654666666666667,
+            "used_tokens": 16964,
+            "vocab_size": 30000,
+            "unused_tokens": 13036
+          }
+        }
       }
     }
   },
   "type_token_ratio": {
     "per_tokenizer": {
+      "modernbertic": {
+        "global_ttr": 0.0987382798935062
+      },
+      "bpe": {
+        "global_ttr": 0.08707767503968154
+      },
+      "srna": {
+        "global_ttr": 0.08066114257404583
+      },
       "MiRe_bpe": {
         "global_ttr": 0.03865849182091418
+      },
+      "Morfotok": {
+        "global_ttr": 0.04921723684771103
+      },
+      "ts_bpe": {
+        "global_ttr": 0.08709626077536414
       }
     },
     "per_language": {
       "srp_Latn": {
-        "MiRe_bpe": 0.03865849182091418
+        "modernbertic": 0.0987382798935062,
+        "bpe": 0.08707767503968154,
+        "srna": 0.08066114257404583,
+        "MiRe_bpe": 0.03865849182091418,
+        "Morfotok": 0.04921723684771103,
+        "ts_bpe": 0.08709626077536414
       }
     }
   },
   "avg_tokens_per_line": {
     "per_tokenizer": {
+      "modernbertic": {
+        "global_avg": 198.697
+      },
+      "bpe": {
+        "global_avg": 198.455
+      },
+      "srna": {
+        "global_avg": 205.886
+      },
       "MiRe_bpe": {
         "global_avg": 275.153
+      },
+      "Morfotok": {
+        "global_avg": 305.137
+      },
+      "ts_bpe": {
+        "global_avg": 194.773
       }
     }
   },
   "compression_ratio": {
     "per_tokenizer": {
+      "modernbertic": {
+        "global": {
+          "mean": 0.010415744779725329,
+          "median": 0.006993006993006993,
+          "std": 0.009201920082737297,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": 0.010415744779725329
+        }
+      },
+      "bpe": {
+        "global": {
+          "mean": 0.01067328450717904,
+          "median": 0.007117527862208713,
+          "std": 0.009802023964809945,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": 0.01067328450717904
+        }
+      },
+      "srna": {
+        "global": {
+          "mean": 0.010386466754400296,
+          "median": 0.006756756756756757,
+          "std": 0.009695426939442548,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": 0.010386466754400296
+        }
+      },
       "MiRe_bpe": {
         "global": {
           "mean": 0.007565412481757193,
@@ -76,13 +440,213 @@
         "per_language": {
           "srp_Latn": 0.007565412481757193
         }
+      },
+      "Morfotok": {
+        "global": {
+          "mean": 0.006924103055730139,
+          "median": 0.004597725447089165,
+          "std": 0.006109239839478401,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": 0.006924103055730139
+        }
+      },
+      "ts_bpe": {
+        "global": {
+          "mean": 0.010821595299869912,
+          "median": 0.0072203107079553755,
+          "std": 0.009746953099465456,
+          "count": 1000
+        },
+        "per_language": {
+          "srp_Latn": 0.010821595299869912
+        }
       }
     },
-    "pairwise_comparisons": {},
+    "pairwise_comparisons": {
+      "modernbertic_vs_bpe": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "bpe",
+        "value_1": 0.010415744779725329,
+        "value_2": 0.01067328450717904,
+        "difference": -0.0002575397274537112,
+        "ratio": 0.9758706209620398,
+        "percent_difference": 2.442404758891727
+      },
+      "modernbertic_vs_srna": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "srna",
+        "value_1": 0.010415744779725329,
+        "value_2": 0.010386466754400296,
+        "difference": 2.927802532503264e-05,
+        "ratio": 1.0028188628546497,
+        "percent_difference": 0.28148954525342273
+      },
+      "modernbertic_vs_MiRe_bpe": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "MiRe_bpe",
+        "value_1": 0.010415744779725329,
+        "value_2": 0.007565412481757193,
+        "difference": 0.002850332297968136,
+        "ratio": 1.3767583465992457,
+        "percent_difference": 31.703546735268695
+      },
+      "modernbertic_vs_Morfotok": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.010415744779725329,
+        "value_2": 0.006924103055730139,
+        "difference": 0.0034916417239951895,
+        "ratio": 1.5042735060255397,
+        "percent_difference": 40.27303765441001
+      },
+      "modernbertic_vs_ts_bpe": {
+        "tokenizer_1": "modernbertic",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.010415744779725329,
+        "value_2": 0.010821595299869912,
+        "difference": -0.0004058505201445829,
+        "ratio": 0.962496239334559,
+        "percent_difference": 3.8220466275296183
+      },
+      "bpe_vs_srna": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "srna",
+        "value_1": 0.01067328450717904,
+        "value_2": 0.010386466754400296,
+        "difference": 0.00028681775277874383,
+        "ratio": 1.0276145641786445,
+        "percent_difference": 2.7238474872398326
+      },
+      "bpe_vs_MiRe_bpe": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "MiRe_bpe",
+        "value_1": 0.01067328450717904,
+        "value_2": 0.007565412481757193,
+        "difference": 0.003107872025421847,
+        "ratio": 1.4108000763892246,
+        "percent_difference": 34.07997871017992
+      },
+      "bpe_vs_Morfotok": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.01067328450717904,
+        "value_2": 0.006924103055730139,
+        "difference": 0.0037491814514489007,
+        "ratio": 1.5414681759171989,
+        "percent_difference": 42.610659543024695
+      },
+      "bpe_vs_ts_bpe": {
+        "tokenizer_1": "bpe",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.01067328450717904,
+        "value_2": 0.010821595299869912,
+        "difference": -0.00014831079269087173,
+        "ratio": 0.9862949233841101,
+        "percent_difference": 1.3799639171951568
+      },
+      "srna_vs_MiRe_bpe": {
+        "tokenizer_1": "srna",
+        "tokenizer_2": "MiRe_bpe",
+        "value_1": 0.010386466754400296,
+        "value_2": 0.007565412481757193,
+        "difference": 0.0028210542726431033,
+        "ratio": 1.372888362590359,
+        "percent_difference": 31.429069185816736
+      },
+      "srna_vs_Morfotok": {
+        "tokenizer_1": "srna",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.010386466754400296,
+        "value_2": 0.006924103055730139,
+        "difference": 0.003462363698670157,
+        "ratio": 1.5000450846561026,
+        "percent_difference": 40.002885365956274
+      },
+      "srna_vs_ts_bpe": {
+        "tokenizer_1": "srna",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.010386466754400296,
+        "value_2": 0.010821595299869912,
+        "difference": -0.00043512854546961556,
+        "ratio": 0.9597907209231114,
+        "percent_difference": 4.103425804358237
+      },
+      "MiRe_bpe_vs_Morfotok": {
+        "tokenizer_1": "MiRe_bpe",
+        "tokenizer_2": "Morfotok",
+        "value_1": 0.007565412481757193,
+        "value_2": 0.006924103055730139,
+        "difference": 0.0006413094260270535,
+        "ratio": 1.0926198557221543,
+        "percent_difference": 8.85204787375886
+      },
+      "MiRe_bpe_vs_ts_bpe": {
+        "tokenizer_1": "MiRe_bpe",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.007565412481757193,
+        "value_2": 0.010821595299869912,
+        "difference": -0.003256182818112719,
+        "ratio": 0.6991032534591399,
+        "percent_difference": 35.41830032145201
+      },
+      "Morfotok_vs_ts_bpe": {
+        "tokenizer_1": "Morfotok",
+        "tokenizer_2": "ts_bpe",
+        "value_1": 0.006924103055730139,
+        "value_2": 0.010821595299869912,
+        "difference": -0.0038974922441397724,
+        "ratio": 0.6398412492669519,
+        "percent_difference": 43.92605087767461
+      }
+    },
     "per_language": {}
   },
   "renyi_efficiency": {
     "per_tokenizer": {
+      "modernbertic": {
+        "renyi_1.0": {
+          "overall": 11.151301470806482
+        },
+        "renyi_2.0": {
+          "overall": 7.615429542708803
+        },
+        "renyi_2.5": {
+          "overall": 6.8493873166987855
+        },
+        "renyi_3.0": {
+          "overall": 6.379882827752018
+        }
+      },
+      "bpe": {
+        "renyi_1.0": {
+          "overall": 11.155033237757028
+        },
+        "renyi_2.0": {
+          "overall": 7.6635857112021135
+        },
+        "renyi_2.5": {
+          "overall": 6.872864157991286
+        },
+        "renyi_3.0": {
+          "overall": 6.391573380428332
+        }
+      },
+      "srna": {
+        "renyi_1.0": {
+          "overall": 10.732672244588208
+        },
+        "renyi_2.0": {
+          "overall": 7.12694015268579
+        },
+        "renyi_2.5": {
+          "overall": 6.4098318866820145
+        },
+        "renyi_3.0": {
+          "overall": 5.984079157186571
+        }
+      },
       "MiRe_bpe": {
         "renyi_1.0": {
           "overall": 9.174046193596451
@@ -96,36 +660,250 @@
         "renyi_3.0": {
           "overall": 5.562360581212798
         }
+      },
+      "Morfotok": {
+        "renyi_1.0": {
+          "overall": 8.355202376718527
+        },
+        "renyi_2.0": {
+          "overall": 3.3999872460337217
+        },
+        "renyi_2.5": {
+          "overall": 2.857478655638828
+        },
+        "renyi_3.0": {
+          "overall": 2.5750793077749976
+        }
+      },
+      "ts_bpe": {
+        "renyi_1.0": {
+          "overall": 11.09679992517802
+        },
+        "renyi_2.0": {
+          "overall": 7.568369860626517
+        },
+        "renyi_2.5": {
+          "overall": 6.8037085183701835
+        },
+        "renyi_3.0": {
+          "overall": 6.338024729297742
+        }
       }
     },
     "pairwise_comparisons": {
-      "shannon": {}
+      "shannon": {
+        "modernbertic_vs_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "bpe",
+          "value_1": 11.151301470806482,
+          "value_2": 11.155033237757028,
+          "difference": -0.0037317669505458895,
+          "ratio": 0.9996654633947737,
+          "percent_difference": 0.03345925719578883
+        },
+        "modernbertic_vs_srna": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "srna",
+          "value_1": 11.151301470806482,
+          "value_2": 10.732672244588208,
+          "difference": 0.4186292262182736,
+          "ratio": 1.0390051253479171,
+          "percent_difference": 3.8258977246328993
+        },
+        "modernbertic_vs_MiRe_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 11.151301470806482,
+          "value_2": 9.174046193596451,
+          "difference": 1.9772552772100305,
+          "ratio": 1.2155270679354295,
+          "percent_difference": 19.456053690760946
+        },
+        "modernbertic_vs_Morfotok": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "Morfotok",
+          "value_1": 11.151301470806482,
+          "value_2": 8.355202376718527,
+          "difference": 2.796099094087955,
+          "ratio": 1.3346536646292597,
+          "percent_difference": 28.668377644133546
+        },
+        "modernbertic_vs_ts_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 11.151301470806482,
+          "value_2": 11.09679992517802,
+          "difference": 0.054501545628461656,
+          "ratio": 1.0049114651066926,
+          "percent_difference": 0.489943340857827
+        },
+        "bpe_vs_srna": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "srna",
+          "value_1": 11.155033237757028,
+          "value_2": 10.732672244588208,
+          "difference": 0.4223609931688195,
+          "ratio": 1.0393528269142653,
+          "percent_difference": 3.8593446307973998
+        },
+        "bpe_vs_MiRe_bpe": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 11.155033237757028,
+          "value_2": 9.174046193596451,
+          "difference": 1.9809870441605764,
+          "ratio": 1.2159338423152173,
+          "percent_difference": 19.48919576855316
+        },
+        "bpe_vs_Morfotok": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "Morfotok",
+          "value_1": 11.155033237757028,
+          "value_2": 8.355202376718527,
+          "difference": 2.799830861038501,
+          "ratio": 1.3351003045527814,
+          "percent_difference": 28.701148631553952
+        },
+        "bpe_vs_ts_bpe": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 11.155033237757028,
+          "value_2": 11.09679992517802,
+          "difference": 0.058233312579007546,
+          "ratio": 1.005247757278824,
+          "percent_difference": 0.5234023835483987
+        },
+        "srna_vs_MiRe_bpe": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 10.732672244588208,
+          "value_2": 9.174046193596451,
+          "difference": 1.5586260509917569,
+          "ratio": 1.1698951605540955,
+          "percent_difference": 15.659296692538055
+        },
+        "srna_vs_Morfotok": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "Morfotok",
+          "value_1": 10.732672244588208,
+          "value_2": 8.355202376718527,
+          "difference": 2.3774698678696815,
+          "ratio": 1.2845496447212836,
+          "percent_difference": 24.91078671709048
+        },
+        "srna_vs_ts_bpe": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 10.732672244588208,
+          "value_2": 11.09679992517802,
+          "difference": -0.36412768058981193,
+          "ratio": 0.9671862444087482,
+          "percent_difference": 3.3361107200212383
+        },
+        "MiRe_bpe_vs_Morfotok": {
+          "tokenizer_1": "MiRe_bpe",
+          "tokenizer_2": "Morfotok",
+          "value_1": 9.174046193596451,
+          "value_2": 8.355202376718527,
+          "difference": 0.8188438168779246,
+          "ratio": 1.0980040674011204,
+          "percent_difference": 9.342600324175915
+        },
+        "MiRe_bpe_vs_ts_bpe": {
+          "tokenizer_1": "MiRe_bpe",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 9.174046193596451,
+          "value_2": 11.09679992517802,
+          "difference": -1.9227537315815688,
+          "ratio": 0.8267289899298853,
+          "percent_difference": 18.970631223930518
+        },
+        "Morfotok_vs_ts_bpe": {
+          "tokenizer_1": "Morfotok",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 8.355202376718527,
+          "value_2": 11.09679992517802,
+          "difference": -2.7415975484594934,
+          "ratio": 0.7529380031229579,
+          "percent_difference": 28.188332552193774
+        }
+      }
     },
     "per_language": {
       "renyi_1.0": {
         "srp_Latn": {
-          "MiRe_bpe": 9.174046193596451
+          "modernbertic": 11.151301470806482,
+          "bpe": 11.155033237757028,
+          "srna": 10.732672244588208,
+          "MiRe_bpe": 9.174046193596451,
+          "Morfotok": 8.355202376718527,
+          "ts_bpe": 11.09679992517802
         }
       },
       "renyi_2.0": {
         "srp_Latn": {
-          "MiRe_bpe": 6.381886983634563
+          "modernbertic": 7.615429542708803,
+          "bpe": 7.6635857112021135,
+          "srna": 7.12694015268579,
+          "MiRe_bpe": 6.381886983634563,
+          "Morfotok": 3.3999872460337217,
+          "ts_bpe": 7.568369860626517
         }
       },
       "renyi_2.5": {
         "srp_Latn": {
-          "MiRe_bpe": 5.870214814895032
+          "modernbertic": 6.8493873166987855,
+          "bpe": 6.872864157991286,
+          "srna": 6.4098318866820145,
+          "MiRe_bpe": 5.870214814895032,
+          "Morfotok": 2.857478655638828,
+          "ts_bpe": 6.8037085183701835
         }
       },
       "renyi_3.0": {
         "srp_Latn": {
-          "MiRe_bpe": 5.562360581212798
+          "modernbertic": 6.379882827752018,
+          "bpe": 6.391573380428332,
+          "srna": 5.984079157186571,
+          "MiRe_bpe": 5.562360581212798,
+          "Morfotok": 2.5750793077749976,
+          "ts_bpe": 6.338024729297742
         }
       }
     }
   },
   "unigram_distribution_metrics": {
     "per_tokenizer": {
+      "modernbertic": {
+        "per_language": {
+          "srp_Latn": {
+            "unigram_entropy": 11.151301470806482,
+            "avg_token_rank": 2108.2445130022093,
+            "total_tokens": 198697,
+            "unique_tokens": 19619
+          }
+        }
+      },
+      "bpe": {
+        "per_language": {
+          "srp_Latn": {
+            "unigram_entropy": 11.155033237757028,
+            "avg_token_rank": 1926.6064800584516,
+            "total_tokens": 198455,
+            "unique_tokens": 17281
+          }
+        }
+      },
+      "srna": {
+        "per_language": {
+          "srp_Latn": {
+            "unigram_entropy": 10.732672244588208,
+            "avg_token_rank": 1695.181692781442,
+            "total_tokens": 205886,
+            "unique_tokens": 16607
+          }
+        }
+      },
       "MiRe_bpe": {
         "per_language": {
           "srp_Latn": {
@@ -135,32 +913,374 @@
             "unique_tokens": 10637
           }
         }
+      },
+      "Morfotok": {
+        "per_language": {
+          "srp_Latn": {
+            "unigram_entropy": 8.355202376718527,
+            "avg_token_rank": 1047.3965726870226,
+            "total_tokens": 305137,
+            "unique_tokens": 15018
+          }
+        }
+      },
+      "ts_bpe": {
+        "per_language": {
+          "srp_Latn": {
+            "unigram_entropy": 11.09679992517802,
+            "avg_token_rank": 1916.4967577641664,
+            "total_tokens": 194773,
+            "unique_tokens": 16964
+          }
+        }
       }
     },
     "pairwise_comparisons": {
-      "global_unigram_entropy": {},
-      "global_avg_token_rank": {}
+      "global_unigram_entropy": {
+        "modernbertic_vs_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "bpe",
+          "value_1": 11.151301470806482,
+          "value_2": 11.155033237757028,
+          "difference": -0.0037317669505458895,
+          "ratio": 0.9996654633947737,
+          "percent_difference": 0.03345925719578883
+        },
+        "modernbertic_vs_srna": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "srna",
+          "value_1": 11.151301470806482,
+          "value_2": 10.732672244588208,
+          "difference": 0.4186292262182736,
+          "ratio": 1.0390051253479171,
+          "percent_difference": 3.8258977246328993
+        },
+        "modernbertic_vs_MiRe_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 11.151301470806482,
+          "value_2": 9.174046193596451,
+          "difference": 1.9772552772100305,
+          "ratio": 1.2155270679354295,
+          "percent_difference": 19.456053690760946
+        },
+        "modernbertic_vs_Morfotok": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "Morfotok",
+          "value_1": 11.151301470806482,
+          "value_2": 8.355202376718527,
+          "difference": 2.796099094087955,
+          "ratio": 1.3346536646292597,
+          "percent_difference": 28.668377644133546
+        },
+        "modernbertic_vs_ts_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 11.151301470806482,
+          "value_2": 11.09679992517802,
+          "difference": 0.054501545628461656,
+          "ratio": 1.0049114651066926,
+          "percent_difference": 0.489943340857827
+        },
+        "bpe_vs_srna": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "srna",
+          "value_1": 11.155033237757028,
+          "value_2": 10.732672244588208,
+          "difference": 0.4223609931688195,
+          "ratio": 1.0393528269142653,
+          "percent_difference": 3.8593446307973998
+        },
+        "bpe_vs_MiRe_bpe": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 11.155033237757028,
+          "value_2": 9.174046193596451,
+          "difference": 1.9809870441605764,
+          "ratio": 1.2159338423152173,
+          "percent_difference": 19.48919576855316
+        },
+        "bpe_vs_Morfotok": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "Morfotok",
+          "value_1": 11.155033237757028,
+          "value_2": 8.355202376718527,
+          "difference": 2.799830861038501,
+          "ratio": 1.3351003045527814,
+          "percent_difference": 28.701148631553952
+        },
+        "bpe_vs_ts_bpe": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 11.155033237757028,
+          "value_2": 11.09679992517802,
+          "difference": 0.058233312579007546,
+          "ratio": 1.005247757278824,
+          "percent_difference": 0.5234023835483987
+        },
+        "srna_vs_MiRe_bpe": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 10.732672244588208,
+          "value_2": 9.174046193596451,
+          "difference": 1.5586260509917569,
+          "ratio": 1.1698951605540955,
+          "percent_difference": 15.659296692538055
+        },
+        "srna_vs_Morfotok": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "Morfotok",
+          "value_1": 10.732672244588208,
+          "value_2": 8.355202376718527,
+          "difference": 2.3774698678696815,
+          "ratio": 1.2845496447212836,
+          "percent_difference": 24.91078671709048
+        },
+        "srna_vs_ts_bpe": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 10.732672244588208,
+          "value_2": 11.09679992517802,
+          "difference": -0.36412768058981193,
+          "ratio": 0.9671862444087482,
+          "percent_difference": 3.3361107200212383
+        },
+        "MiRe_bpe_vs_Morfotok": {
+          "tokenizer_1": "MiRe_bpe",
+          "tokenizer_2": "Morfotok",
+          "value_1": 9.174046193596451,
+          "value_2": 8.355202376718527,
+          "difference": 0.8188438168779246,
+          "ratio": 1.0980040674011204,
+          "percent_difference": 9.342600324175915
+        },
+        "MiRe_bpe_vs_ts_bpe": {
+          "tokenizer_1": "MiRe_bpe",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 9.174046193596451,
+          "value_2": 11.09679992517802,
+          "difference": -1.9227537315815688,
+          "ratio": 0.8267289899298853,
+          "percent_difference": 18.970631223930518
+        },
+        "Morfotok_vs_ts_bpe": {
+          "tokenizer_1": "Morfotok",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 8.355202376718527,
+          "value_2": 11.09679992517802,
+          "difference": -2.7415975484594934,
+          "ratio": 0.7529380031229579,
+          "percent_difference": 28.188332552193774
+        }
+      },
+      "global_avg_token_rank": {
+        "modernbertic_vs_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "bpe",
+          "value_1": 2108.2445130022093,
+          "value_2": 1926.6064800584516,
+          "difference": 181.6380329437577,
+          "ratio": 1.0942787407931105,
+          "percent_difference": 9.00345679462007
+        },
+        "modernbertic_vs_srna": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "srna",
+          "value_1": 2108.2445130022093,
+          "value_2": 1695.181692781442,
+          "difference": 413.0628202207672,
+          "ratio": 1.2436687595080245,
+          "percent_difference": 21.72056445278977
+        },
+        "modernbertic_vs_MiRe_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 2108.2445130022093,
+          "value_2": 634.1884987625067,
+          "difference": 1474.0560142397026,
+          "ratio": 3.324318427590584,
+          "percent_difference": 107.49987386500783
+        },
+        "modernbertic_vs_Morfotok": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "Morfotok",
+          "value_1": 2108.2445130022093,
+          "value_2": 1047.3965726870226,
+          "difference": 1060.8479403151866,
+          "ratio": 2.012842669127373,
+          "percent_difference": 67.23501890795569
+        },
+        "modernbertic_vs_ts_bpe": {
+          "tokenizer_1": "modernbertic",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 2108.2445130022093,
+          "value_2": 1916.4967577641664,
+          "difference": 191.74775523804283,
+          "ratio": 1.1000511764297167,
+          "percent_difference": 9.528451263727119
+        },
+        "bpe_vs_srna": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "srna",
+          "value_1": 1926.6064800584516,
+          "value_2": 1695.181692781442,
+          "difference": 231.4247872770095,
+          "ratio": 1.1365191638527485,
+          "percent_difference": 12.779587111829688
+        },
+        "bpe_vs_MiRe_bpe": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 1926.6064800584516,
+          "value_2": 634.1884987625067,
+          "difference": 1292.4179812959449,
+          "ratio": 3.037908262003872,
+          "percent_difference": 100.93880939199596
+        },
+        "bpe_vs_Morfotok": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "Morfotok",
+          "value_1": 1926.6064800584516,
+          "value_2": 1047.3965726870226,
+          "difference": 879.2099073714289,
+          "ratio": 1.839424082815048,
+          "percent_difference": 59.126362130649426
+        },
+        "bpe_vs_ts_bpe": {
+          "tokenizer_1": "bpe",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 1926.6064800584516,
+          "value_2": 1916.4967577641664,
+          "difference": 10.10972229428512,
+          "ratio": 1.0052751053469453,
+          "percent_difference": 0.5261228579439866
+        },
+        "srna_vs_MiRe_bpe": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "MiRe_bpe",
+          "value_1": 1695.181692781442,
+          "value_2": 634.1884987625067,
+          "difference": 1060.9931940189354,
+          "ratio": 2.6729934334811394,
+          "percent_difference": 91.09700105810059
+        },
+        "srna_vs_Morfotok": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "Morfotok",
+          "value_1": 1695.181692781442,
+          "value_2": 1047.3965726870226,
+          "difference": 647.7851200944194,
+          "ratio": 1.6184716820607614,
+          "percent_difference": 47.239134667594996
+        },
+        "srna_vs_ts_bpe": {
+          "tokenizer_1": "srna",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 1695.181692781442,
+          "value_2": 1916.4967577641664,
+          "difference": -221.31506498272438,
+          "ratio": 0.8845210334501603,
+          "percent_difference": 12.255524295042976
+        },
+        "MiRe_bpe_vs_Morfotok": {
+          "tokenizer_1": "MiRe_bpe",
+          "tokenizer_2": "Morfotok",
+          "value_1": 634.1884987625067,
+          "value_2": 1047.3965726870226,
+          "difference": -413.20807392451593,
+          "ratio": 0.6054903322201451,
+          "percent_difference": 49.14506924925658
+        },
+        "MiRe_bpe_vs_ts_bpe": {
+          "tokenizer_1": "MiRe_bpe",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 634.1884987625067,
+          "value_2": 1916.4967577641664,
+          "difference": -1282.3082590016597,
+          "ratio": 0.33091029045223486,
+          "percent_difference": 100.54617720634089
+        },
+        "Morfotok_vs_ts_bpe": {
+          "tokenizer_1": "Morfotok",
+          "tokenizer_2": "ts_bpe",
+          "value_1": 1047.3965726870226,
+          "value_2": 1916.4967577641664,
+          "difference": -869.1001850771438,
+          "ratio": 0.5465162246916305,
+          "percent_difference": 58.64584775355879
+        }
+      }
     },
     "per_language": {
       "unigram_entropy": {
         "srp_Latn": {
-          "MiRe_bpe": 9.174046193596451
+          "modernbertic": 11.151301470806482,
+          "bpe": 11.155033237757028,
+          "srna": 10.732672244588208,
+          "MiRe_bpe": 9.174046193596451,
+          "Morfotok": 8.355202376718527,
+          "ts_bpe": 11.09679992517802
         }
       },
       "avg_token_rank": {
         "srp_Latn": {
-          "MiRe_bpe": 634.1884987625067
+          "modernbertic": 2108.2445130022093,
+          "bpe": 1926.6064800584516,
+          "srna": 1695.181692781442,
+          "MiRe_bpe": 634.1884987625067,
+          "Morfotok": 1047.3965726870226,
+          "ts_bpe": 1916.4967577641664
         }
       }
     }
   },
   "tokenizer_fairness_gini": {
     "per_tokenizer": {
+      "modernbertic": {
+        "gini_coefficient": 0.0,
+        "mean_cost": 0.0,
+        "language_costs": {
+          "srp_Latn": 198.697
+        },
+        "warning": "Insufficient language data for meaningful TFG calculation"
+      },
+      "bpe": {
+        "gini_coefficient": 0.0,
+        "mean_cost": 0.0,
+        "language_costs": {
+          "srp_Latn": 198.455
+        },
+        "warning": "Insufficient language data for meaningful TFG calculation"
+      },
+      "srna": {
+        "gini_coefficient": 0.0,
+        "mean_cost": 0.0,
+        "language_costs": {
+          "srp_Latn": 205.886
+        },
+        "warning": "Insufficient language data for meaningful TFG calculation"
+      },
       "MiRe_bpe": {
         "gini_coefficient": 0.0,
         "mean_cost": 0.0,
         "language_costs": {
           "srp_Latn": 275.153
+        },
+        "warning": "Insufficient language data for meaningful TFG calculation"
+      },
+      "Morfotok": {
+        "gini_coefficient": 0.0,
+        "mean_cost": 0.0,
+        "language_costs": {
+          "srp_Latn": 305.137
+        },
+        "warning": "Insufficient language data for meaningful TFG calculation"
+      },
+      "ts_bpe": {
+        "gini_coefficient": 0.0,
+        "mean_cost": 0.0,
+        "language_costs": {
+          "srp_Latn": 194.773
         },
         "warning": "Insufficient language data for meaningful TFG calculation"
       }
@@ -174,7 +1294,22 @@
   },
   "lorenz_curve_data": {
     "per_tokenizer": {
+      "modernbertic": {
+        "warning": "Insufficient data for Lorenz curve"
+      },
+      "bpe": {
+        "warning": "Insufficient data for Lorenz curve"
+      },
+      "srna": {
+        "warning": "Insufficient data for Lorenz curve"
+      },
       "MiRe_bpe": {
+        "warning": "Insufficient data for Lorenz curve"
+      },
+      "Morfotok": {
+        "warning": "Insufficient data for Lorenz curve"
+      },
+      "ts_bpe": {
         "warning": "Insufficient data for Lorenz curve"
       }
     },
@@ -186,6 +1321,60 @@
   },
   "morphscore": {
     "per_tokenizer": {
+      "modernbertic": {
+        "per_language": {
+          "srp_Latn": {
+            "morphscore_recall": 0.7813812204055942,
+            "morphscore_precision": 0.7613419101223807,
+            "morphscore_recall_std": 0.00014587474109574284,
+            "morphscore_precision_std": 0.00014420549972685636,
+            "mean_token_char_ratio": 0.21798906379380897,
+            "micro_precision": 0.01966966966966967,
+            "micro_recall": 0.016743353783231083,
+            "micro_f1": 0.018088925711129522,
+            "macro_precision": 0.012863247863247863,
+            "macro_recall": 0.016623931623931623,
+            "macro_f1": 0.014503778025517156,
+            "num_samples": 3900
+          }
+        }
+      },
+      "bpe": {
+        "per_language": {
+          "srp_Latn": {
+            "morphscore_recall": 0.7121415170195484,
+            "morphscore_precision": 0.6889052681735427,
+            "morphscore_recall_std": 0.00014629837466737392,
+            "morphscore_precision_std": 0.00014447966808844433,
+            "mean_token_char_ratio": 0.24249909037977624,
+            "micro_precision": 0.023806321452589107,
+            "micro_recall": 0.02262269938650307,
+            "micro_f1": 0.023199423291172427,
+            "macro_precision": 0.018055555555555554,
+            "macro_recall": 0.022435897435897436,
+            "macro_f1": 0.020008795074758137,
+            "num_samples": 3900
+          }
+        }
+      },
+      "srna": {
+        "per_language": {
+          "srp_Latn": {
+            "morphscore_recall": 0.6466988296256441,
+            "morphscore_precision": 0.6207185188021268,
+            "morphscore_recall_std": 0.00014257020391005484,
+            "morphscore_precision_std": 0.0001406712589031267,
+            "mean_token_char_ratio": 0.2778772094800316,
+            "micro_precision": 0.02074934787763813,
+            "micro_recall": 0.022367075664621677,
+            "micro_f1": 0.021527863205806373,
+            "macro_precision": 0.017064713064713063,
+            "macro_recall": 0.022136752136752137,
+            "macro_f1": 0.019272612462670397,
+            "num_samples": 3900
+          }
+        }
+      },
       "MiRe_bpe": {
         "per_language": {
           "srp_Latn": {
@@ -200,6 +1389,42 @@
             "macro_precision": 0.4387945665445666,
             "macro_recall": 0.5015384615384615,
             "macro_f1": 0.46807321504986293,
+            "num_samples": 3900
+          }
+        }
+      },
+      "Morfotok": {
+        "per_language": {
+          "srp_Latn": {
+            "morphscore_recall": 0.7940230501205999,
+            "morphscore_precision": 0.6528225549131335,
+            "morphscore_recall_std": 0.0001445972683716514,
+            "morphscore_precision_std": 0.0001410967394363796,
+            "mean_token_char_ratio": 0.27301522710462334,
+            "micro_precision": 0.2979265187340851,
+            "micro_recall": 0.31403374233128833,
+            "micro_f1": 0.30576815381743516,
+            "macro_precision": 0.29635470085470084,
+            "macro_recall": 0.31431623931623937,
+            "macro_f1": 0.30507132057164593,
+            "num_samples": 3900
+          }
+        }
+      },
+      "ts_bpe": {
+        "per_language": {
+          "srp_Latn": {
+            "morphscore_recall": 0.7164745823282247,
+            "morphscore_precision": 0.688777211947926,
+            "morphscore_recall_std": 0.00014587686193966875,
+            "morphscore_precision_std": 0.00014420943895026867,
+            "mean_token_char_ratio": 0.24326145577407784,
+            "micro_precision": 0.039967811158798286,
+            "micro_recall": 0.0380879345603272,
+            "micro_f1": 0.039005235602094235,
+            "macro_precision": 0.031726495726495725,
+            "macro_recall": 0.037649572649572645,
+            "macro_f1": 0.03443518878285417,
             "num_samples": 3900
           }
         }

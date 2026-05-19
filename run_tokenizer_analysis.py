@@ -54,12 +54,6 @@ def load_config_from_file(config_path: str) -> Dict:
 def create_sample_configs() -> Dict[str, Dict]:
     """Create sample tokenizer configurations for testing."""
     return {
-        "MiRe_bpe": {
-            "class": "huggingface",
-            "path": "sample_tokenizers/MiRe_bpe.json"
-        }, 
-    }
-    return {
         "modernbertic": {
             "class": "huggingface",
             "path": "sample_tokenizers/modernbertic.json"

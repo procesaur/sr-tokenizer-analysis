@@ -1,9 +1,17 @@
 from datasets import load_dataset, load_from_disk
-from tokenizers import Tokenizer, models, trainers, pre_tokenizers
+from tokenizers import Tokenizer, models, trainers, pre_tokenizers, decoders, AddedToken
 from custom.tokenization_srna import SrnaTokenizer
 
-from tokenizer_training.MiRe import token_freq, create_base_tokenizer, create_added_token, update_tokens_from_count, HR_inspect, end_suffix
+from tokenizer_training.MiRe import token_freq, create_base_tokenizer, update_tokens_from_count, HR_inspect, end_suffix
 
+
+def create_special_token(token):
+    return AddedToken(
+        token, 
+        normalized=False,  # CRITICAL: Prevents pre-processing/lowercasing/spacing changes
+        special=True,      # CRITICAL: Keeps it completely atomic during tokenization splits
+        single_word=False   # Ensures it acts as an un-splittable block
+    )
 
 vocab_size = 30000
 suffix_vocab_size = 200
@@ -20,8 +28,8 @@ eoc_token = "<cend>"
 cap_token = "<capi>"
 up_token = "<uppe>"
 sepcial_tokens_list_srna = ["[PAD]", up_token, cap_token, eoc_token, boc_token]
-special_tokens=[create_added_token(x) for x in special_tokens_list]
-special_tokens_srna=[create_added_token(x) for x in sepcial_tokens_list_srna]
+special_tokens=[create_special_token(x) for x in special_tokens_list]
+special_tokens_srna=[create_special_token(x) for x in sepcial_tokens_list_srna]
 srnatok = SrnaTokenizer(
     boc_token = boc_token,
     eoc_token = eoc_token,
@@ -66,6 +74,8 @@ def train_bpe(dataset, latin=True):
     tokenizer = Tokenizer(models.BPE(ignore_merges=True))
     tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
     tokenizer.add_special_tokens(special_tokens)
+    tokenizer.decoder = decoders.ByteLevel(add_prefix_space=True, trim_offsets=True, use_regex=True)
+
     trainer = trainers.BpeTrainer(
         vocab_size=vocab_size,
         special_tokens=special_tokens,
@@ -87,7 +97,7 @@ def train_srna(dataset, latin=True):
     tokenizer = Tokenizer(models.BPE(ignore_merges=True))
     tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
     tokenizer.add_special_tokens(special_tokens_srna)
-
+    tokenizer.decoder = decoders.ByteLevel(add_prefix_space=True, trim_offsets=True, use_regex=True)
     trainer = trainers.BpeTrainer(
         vocab_size=vocab_size,
         special_tokens=special_tokens_srna,
@@ -107,6 +117,8 @@ def train_ts_bpe(dataset, latin=True):
         pre_tokenizers.ByteLevel(add_prefix_space=False)
     ])
     tokenizer.add_special_tokens(special_tokens)
+    tokenizer.decoder = decoders.ByteLevel(add_prefix_space=True, trim_offsets=True, use_regex=True)
+
     trainer = trainers.BpeTrainer(
         vocab_size=vocab_size,
         special_tokens=special_tokens,

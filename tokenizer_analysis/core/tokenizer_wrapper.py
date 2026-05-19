@@ -15,6 +15,25 @@ import json
 logger = logging.getLogger(__name__)
 
 
+from custom.tokenization_srna import SrnaTokenizer
+from custom.serbian_preprocessor import preprocess1, preprocess2
+from custom.mire_norm import normalize_MiRe
+
+
+_CUSTOM_PREPROCESS: Dict[str, type] = {
+    'srna': SrnaTokenizer().prepare_for_tokenization,
+    'morfotok': preprocess1,
+    'morfotok2': preprocess2,
+    'mire' : normalize_MiRe,
+}
+
+_CUSTOM_POSTPROCESS: Dict[str, type] = {
+    'srna': SrnaTokenizer().prepare_for_tokenization,
+    'morfotok': preprocess1,
+    'morfotok2': preprocess2,
+    'mire' : normalize_MiRe,
+}
+
 class TokenizerWrapper(ABC):
     """
     Abstract base class for tokenizer wrappers.
@@ -45,6 +64,7 @@ class TokenizerWrapper(ABC):
     
     @abstractmethod
     def encode(self, text: str) -> List[int]:
+
         """
         Encode text to token IDs. 
         
@@ -168,8 +188,11 @@ class HuggingFaceTokenizer(TokenizerWrapper):
     def can_encode(self) -> bool:
         return True
     
-    def encode(self, text: str) -> List[int]:
-        result = self._tokenizer.encode(text)
+    def encode(self, text: str, *args, **kwargs) -> List[int]:
+        if self._config["class"] in _CUSTOM_PREPROCESS:
+            text = _CUSTOM_PREPROCESS[self._config["class"]](text)
+
+        result = self._tokenizer.encode(text, *args, **kwargs)
         # Handle different return types
         if hasattr(result, 'ids'):
             return result.ids
@@ -179,7 +202,15 @@ class HuggingFaceTokenizer(TokenizerWrapper):
             return result['input_ids']
         else:
             raise ValueError(f"Unexpected encoding result type: {type(result)}")
-    
+
+    def decode(self, token_ids, *args, **kwargs):
+        text = self._tokenizer.decode(token_ids, *args, **kwargs)
+        return text
+
+    def __getattr__(self, name):
+        """Automatically forwards dictionary attributes like special_tokens_map."""
+        return getattr(self._tokenizer, name)
+
     def can_pretokenize(self) -> bool:
         return hasattr(self._tokenizer, 'pre_tokenizer') and self._tokenizer.pre_tokenizer is not None
     
@@ -642,7 +673,8 @@ _TOKENIZER_REGISTRY: Dict[str, type] = {
     'sentencepiece': SentencePieceTokenizer,
     'srna': HuggingFaceTokenizer,
     'morfotok': HuggingFaceTokenizer,
-    'morfotok2': HuggingFaceTokenizer
+    'morfotok2': HuggingFaceTokenizer,
+    'mire': HuggingFaceTokenizer
 }
 
 
