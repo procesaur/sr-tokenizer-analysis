@@ -1,23 +1,23 @@
 {
   "fertility": {
     "per_tokenizer": {
-      "bpe": {
+      "MiRe_bpe": {
         "global": {
-          "mean": 0.23862415487608782,
-          "median": 0.2291704676762148,
-          "std": 0.04979557276527449,
+          "mean": 0.32711080147462906,
+          "median": 0.3224838181652001,
+          "std": 0.04261201071352335,
           "count": 1000
         },
         "per_language": {
           "srp_Latn": {
-            "mean": 0.23862415487608782,
-            "median": 0.2291704676762148,
-            "std": 0.04979557276527449,
-            "std_err": 0.0015754622014411887,
-            "min": 0.13076923076923078,
-            "max": 0.47863247863247865,
+            "mean": 0.32711080147462906,
+            "median": 0.3224838181652001,
+            "std": 0.04261201071352335,
+            "std_err": 0.001348184356127728,
+            "min": 0.22162162162162163,
+            "max": 0.8547008547008547,
             "count": 1000,
-            "sum": 238.62415487608783
+            "sum": 327.11080147462906
           }
         }
       }
@@ -27,19 +27,19 @@
   },
   "token_length": {
     "per_tokenizer": {
-      "bpe": {}
+      "MiRe_bpe": {}
     }
   },
   "vocabulary_utilization": {
     "per_tokenizer": {
-      "bpe": {
-        "global_utilization": 0.5756666666666667,
+      "MiRe_bpe": {
+        "global_utilization": 0.35456666666666664,
         "per_language": {
           "srp_Latn": {
-            "utilization": 0.5756666666666667,
-            "used_tokens": 17270,
+            "utilization": 0.35456666666666664,
+            "used_tokens": 10637,
             "vocab_size": 30000,
-            "unused_tokens": 12730
+            "unused_tokens": 19363
           }
         }
       }
@@ -47,34 +47,34 @@
   },
   "type_token_ratio": {
     "per_tokenizer": {
-      "bpe": {
-        "global_ttr": 0.0869718487183361
+      "MiRe_bpe": {
+        "global_ttr": 0.03865849182091418
       }
     },
     "per_language": {
       "srp_Latn": {
-        "bpe": 0.0869718487183361
+        "MiRe_bpe": 0.03865849182091418
       }
     }
   },
   "avg_tokens_per_line": {
     "per_tokenizer": {
-      "bpe": {
-        "global_avg": 198.57
+      "MiRe_bpe": {
+        "global_avg": 275.153
       }
     }
   },
   "compression_ratio": {
     "per_tokenizer": {
-      "bpe": {
+      "MiRe_bpe": {
         "global": {
-          "mean": 0.010637389463917051,
-          "median": 0.007117527862208713,
-          "std": 0.009712421447204259,
+          "mean": 0.007565412481757193,
+          "median": 0.00514142215173143,
+          "std": 0.0065215404726106175,
           "count": 1000
         },
         "per_language": {
-          "srp_Latn": 0.010637389463917051
+          "srp_Latn": 0.007565412481757193
         }
       }
     },
@@ -83,18 +83,18 @@
   },
   "renyi_efficiency": {
     "per_tokenizer": {
-      "bpe": {
+      "MiRe_bpe": {
         "renyi_1.0": {
-          "overall": 11.152118932514567
+          "overall": 9.174046193596451
         },
         "renyi_2.0": {
-          "overall": 7.658862134671945
+          "overall": 6.381886983634563
         },
         "renyi_2.5": {
-          "overall": 6.867871622112589
+          "overall": 5.870214814895032
         },
         "renyi_3.0": {
-          "overall": 6.386312834404056
+          "overall": 5.562360581212798
         }
       }
     },
@@ -104,35 +104,35 @@
     "per_language": {
       "renyi_1.0": {
         "srp_Latn": {
-          "bpe": 11.152118932514567
+          "MiRe_bpe": 9.174046193596451
         }
       },
       "renyi_2.0": {
         "srp_Latn": {
-          "bpe": 7.658862134671945
+          "MiRe_bpe": 6.381886983634563
         }
       },
       "renyi_2.5": {
         "srp_Latn": {
-          "bpe": 6.867871622112589
+          "MiRe_bpe": 5.870214814895032
         }
       },
       "renyi_3.0": {
         "srp_Latn": {
-          "bpe": 6.386312834404056
+          "MiRe_bpe": 5.562360581212798
         }
       }
     }
   },
   "unigram_distribution_metrics": {
     "per_tokenizer": {
-      "bpe": {
+      "MiRe_bpe": {
         "per_language": {
           "srp_Latn": {
-            "unigram_entropy": 11.152118932514567,
-            "avg_token_rank": 1925.4993956791056,
-            "total_tokens": 198570,
-            "unique_tokens": 17270
+            "unigram_entropy": 9.174046193596451,
+            "avg_token_rank": 634.1884987625067,
+            "total_tokens": 275153,
+            "unique_tokens": 10637
           }
         }
       }
@@ -144,23 +144,23 @@
     "per_language": {
       "unigram_entropy": {
         "srp_Latn": {
-          "bpe": 11.152118932514567
+          "MiRe_bpe": 9.174046193596451
         }
       },
       "avg_token_rank": {
         "srp_Latn": {
-          "bpe": 1925.4993956791056
+          "MiRe_bpe": 634.1884987625067
         }
       }
     }
   },
   "tokenizer_fairness_gini": {
     "per_tokenizer": {
-      "bpe": {
+      "MiRe_bpe": {
         "gini_coefficient": 0.0,
         "mean_cost": 0.0,
         "language_costs": {
-          "srp_Latn": 198.57
+          "srp_Latn": 275.153
         },
         "warning": "Insufficient language data for meaningful TFG calculation"
       }
@@ -174,7 +174,7 @@
   },
   "lorenz_curve_data": {
     "per_tokenizer": {
-      "bpe": {
+      "MiRe_bpe": {
         "warning": "Insufficient data for Lorenz curve"
       }
     },
@@ -182,6 +182,28 @@
       "description": "Lorenz curve data for visualizing tokenizer fairness",
       "x_axis": "Cumulative proportion of languages (sorted by efficiency)",
       "y_axis": "Cumulative proportion of total token cost"
+    }
+  },
+  "morphscore": {
+    "per_tokenizer": {
+      "MiRe_bpe": {
+        "per_language": {
+          "srp_Latn": {
+            "morphscore_recall": 0.7589564906638057,
+            "morphscore_precision": 0.3629793777006294,
+            "morphscore_recall_std": 0.00013384910658743393,
+            "morphscore_precision_std": 7.792780445989123e-05,
+            "mean_token_char_ratio": 0.3746985369644336,
+            "micro_precision": 0.3383777239709443,
+            "micro_recall": 0.5001278118609407,
+            "micro_f1": 0.40365174334639986,
+            "macro_precision": 0.4387945665445666,
+            "macro_recall": 0.5015384615384615,
+            "macro_f1": 0.46807321504986293,
+            "num_samples": 3900
+          }
+        }
+      }
     }
   }
 }

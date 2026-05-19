@@ -128,8 +128,12 @@ class MorphScoreMetrics(BaseMetrics):
                     continue
                 
                 # Evaluate with MorphScore using the raw tokenizer
-                morph_results = morph_score.eval(underlying_tokenizer)
+                morph_results, examples = morph_score.eval(underlying_tokenizer)
                 
+                with open(f"results/morph_{tok_name}.txt", "w", encoding="utf-8") as ff:
+                    for x, y in examples:
+                        ff.write(",".join(x)+"\t"+",".join(y)+"\n")
+
                 # Process results
                 tokenizer_results = {
                     'per_language': {},

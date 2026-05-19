@@ -53,13 +53,38 @@ def load_config_from_file(config_path: str) -> Dict:
 
 def create_sample_configs() -> Dict[str, Dict]:
     """Create sample tokenizer configurations for testing."""
-
     return {
+        "MiRe_bpe": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/MiRe_bpe.json"
+        }, 
+    }
+    return {
+        "modernbertic": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/modernbertic.json"
+        },
         "bpe": {
             "class": "huggingface",
             "path": "sample_tokenizers/bpe.json"
-            }
-        }
+            },
+        "srna": {
+            "class": "srna",
+            "path": "sample_tokenizers/srna.json"
+        },
+        "MiRe_bpe": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/MiRe_bpe.json"
+        }, 
+        "Morfotok": {
+            "class": "morfotok",
+            "path": "sample_tokenizers/Morfotok.json"
+        }, 
+        "ts_bpe": {
+            "class": "huggingface",
+            "path": "sample_tokenizers/ts_bpe.json"
+        },
+    }
     return {
         "qwen3.5": {
             "class": "huggingface",
