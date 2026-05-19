@@ -640,7 +640,9 @@ _TOKENIZER_REGISTRY: Dict[str, type] = {
     'unimixlm': UniMixLMTokenizer,
     'custom_bpe': CustomBPETokenizer,
     'sentencepiece': SentencePieceTokenizer,
-    'srna': HuggingFaceTokenizer
+    'srna': HuggingFaceTokenizer,
+    'morfotok': HuggingFaceTokenizer,
+    'morfotok2': HuggingFaceTokenizer
 }
 
 

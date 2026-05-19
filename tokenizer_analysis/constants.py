@@ -67,7 +67,7 @@ class DataProcessing:
     # Random sampling
     DEFAULT_RANDOM_SEED = 42
     DEFAULT_MAX_TEXTS_PER_LANGUAGE = 100
-    DEFAULT_MAX_SAMPLES = 20000
+    DEFAULT_MAX_SAMPLES = 1000
     
     # Array processing
     STEP_SIZE_FOR_LARGE_ARRAYS = 50
