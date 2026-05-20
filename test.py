@@ -6,9 +6,9 @@ byte_encoder = bytes_to_unicode()
 tokenizer = PreTrainedTokenizerFast(tokenizer_file="sample_tokenizers/MiRe_bpe.json")
 #tokenizer = PreTrainedTokenizerFast(tokenizer_file="sample_tokenizers/MorfoTok.json")
 # Encode a string → token IDs
-text = "krivičnim delom"
+text = "Jeremića"
 
-text = ["".join(byte_encoder[b] for b in x.encode("utf-8")) for x in text.split()]
+text = " ".join(["".join(byte_encoder[b] for b in x.encode("utf-8")) for x in text.split()])
 
 ids = tokenizer.encode(text)
 print("Token IDs:", ids)

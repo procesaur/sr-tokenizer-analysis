@@ -54,32 +54,6 @@ def load_config_from_file(config_path: str) -> Dict:
 def create_sample_configs() -> Dict[str, Dict]:
     """Create sample tokenizer configurations for testing."""
     return {
-        "modernbertic": {
-            "class": "huggingface",
-            "path": "sample_tokenizers/modernbertic.json"
-        },
-        "bpe": {
-            "class": "huggingface",
-            "path": "sample_tokenizers/bpe.json"
-            },
-        "srna": {
-            "class": "srna",
-            "path": "sample_tokenizers/srna.json"
-        },
-        "MiRe_bpe": {
-            "class": "huggingface",
-            "path": "sample_tokenizers/MiRe_bpe.json"
-        }, 
-        "Morfotok": {
-            "class": "morfotok",
-            "path": "sample_tokenizers/Morfotok.json"
-        }, 
-        "ts_bpe": {
-            "class": "huggingface",
-            "path": "sample_tokenizers/ts_bpe.json"
-        },
-    }
-    return {
         "qwen3.5": {
             "class": "huggingface",
             "path": "sample_tokenizers/qwen.json"
@@ -101,28 +75,36 @@ def create_sample_configs() -> Dict[str, Dict]:
             "path": "sample_tokenizers/ts_bpe.json"
         },
         "MiRe_bpe_control": {
-            "class": "huggingface",
+            "class": "mire",
             "path": "sample_tokenizers/MiRe_bpe_control.json"
         },   
         "MiRe_bpe": {
-            "class": "huggingface",
+            "class": "mire",
             "path": "sample_tokenizers/MiRe_bpe.json"
         },  
         "MiRe_bpe_mien": {
-            "class": "huggingface",
+            "class": "mire",
             "path": "sample_tokenizers/MiRe_bpe_mien.json"
         },
         "MiRe_bpe_control2": {
-            "class": "huggingface",
+            "class": "mire",
             "path": "sample_tokenizers/MiRe_bpe_control2.json"
         },  
         "srna": {
             "class": "srna",
             "path": "sample_tokenizers/srna.json"
         },
-        "srna2": {
+        "srnaCF": {
+            "class": "srnaCF",
+            "path": "sample_tokenizers/srnaCF.json"
+        },
+        "srnaCF2": {
+            "class": "srnaCF",
+            "path": "sample_tokenizers/srnaCF2.json"
+        },
+        "srna50": {
             "class": "srna",
-            "path": "sample_tokenizers/srna2.json"
+            "path": "sample_tokenizers/srna50.json"
         },
         "Morfotok_base": {
             "class": "huggingface",

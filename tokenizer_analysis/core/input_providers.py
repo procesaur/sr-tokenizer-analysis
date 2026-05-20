@@ -2,7 +2,7 @@
 Input provider implementations for raw and pre-tokenized data.
 """
 
-from typing import Dict, List, Any, Union, Optional, TYPE_CHECKING
+from typing import Dict, List, Any, Union, Optional, TYPE_CHECKING, Generator
 import logging
 from .input_types import (
     InputProvider, TokenizedData, InputSpecification, 
@@ -37,49 +37,32 @@ class RawTokenizationProvider(InputProvider):
             if not spec.is_raw_mode:
                 raise ValueError(f"Specification for {name} is not in raw mode")
     
-    def get_tokenized_data(self) -> Dict[str, List[TokenizedData]]:
-        """Get tokenized data by tokenizing raw texts."""
+    def get_tokenized_data(self) -> Dict[str, Generator[TokenizedData, None, None]]:
+        """Yield tokenized data by tokenizing raw texts lazily."""
         if self._tokenized_cache:
             return self._tokenized_cache
-        
+
         tokenized_data = {}
-        
+
         for tok_name, spec in self.specifications.items():
-            tokenized_data[tok_name] = []
             logger.info(f"Tokenizing data for {tok_name} tokenizer...")
-            for language, text_data in spec.texts.items():
-                try:
-                    # Handle both single strings and lists of strings
-                    if isinstance(text_data, str):
-                        # Single string
-                        text_list = [text_data]
-                    elif isinstance(text_data, list):
-                        # List of strings
-                        text_list = text_data
-                    else:
-                        logger.error(f"Text for {language} is neither string nor list: {type(text_data)} - {text_data}")
-                        raise ValueError(f"Text for {language} must be a string or list of strings, got {type(text_data)}")
-                    
-                    # Process each text in the list
+
+            def gen():
+                for language, text_data in spec.texts.items():
+                    # Normalize into a list of strings
+                    text_list = [text_data] if isinstance(text_data, str) else text_data
+                    if not isinstance(text_list, list):
+                        raise ValueError(f"Text for {language} must be str or list, got {type(text_data)}")
+
                     for text in text_list:
-                        # Validate text is a string
-                        if not isinstance(text, str):
-                            logger.error(f"Text item for {language} is not a string: {type(text)} - {text}")
-                            raise ValueError(f"Text item for {language} must be a string, got {type(text)}")
-                        
-                        # Ensure text is not empty
-                        if not text.strip():
-                            logger.debug(f"Empty text for {language}, skipping")
+                        if not isinstance(text, str) or not text.strip():
                             continue
-                        
+
                         tokens = spec.tokenizer.encode(text)
-                        # Validate tokens are integers
-                        if not isinstance(tokens, list) or not all(isinstance(t, int) for t in tokens):
-                            logger.error(f"Tokens for {language} are not a list of integers: {type(tokens)} - {tokens}")
-                            raise ValueError(f"Tokens for {language} must be a list of integers, got {type(tokens)}")
-                        
-                        # Create TokenizedData object
-                        data = TokenizedData(
+                        if not all(isinstance(t, int) for t in tokens):
+                            raise ValueError(f"Tokens must be integers, got {tokens}")
+
+                        yield TokenizedData(
                             tokenizer_name=tok_name,
                             language=language,
                             tokens=tokens,
@@ -90,14 +73,9 @@ class RawTokenizationProvider(InputProvider):
                                 'text_length': len(text)
                             }
                         )
-                        
-                        tokenized_data[tok_name].append(data)
-                        logger.debug(f"Tokenized {language} text for {tok_name}: {len(tokens)} tokens")
-                    
-                except Exception as e:
-                    logger.error(f"Error tokenizing {language} text for {tok_name}: {e}")
-                    raise
-        
+
+            tokenized_data[tok_name] = gen()
+
         self._tokenized_cache = tokenized_data
         return tokenized_data
     
@@ -357,8 +335,10 @@ def create_input_provider(specifications: Dict[str, InputSpecification]) -> Inpu
     if raw_specs and pretokenized_specs:
         return MixedInputProvider(raw_specs, pretokenized_specs)
     elif raw_specs:
-        return RawTokenizationProvider(raw_specs)
+        raw_specs = [{x:y} for x,y in raw_specs.items()]
+        return [RawTokenizationProvider(x) for x in raw_specs]
     elif pretokenized_specs:
         return PreTokenizedProvider(pretokenized_specs)
     else:
         raise ValueError("No valid specifications provided")
+    

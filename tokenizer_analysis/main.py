@@ -6,6 +6,7 @@ import logging
 import os
 from typing import Dict, List, Any, Optional, Tuple, Union
 import numpy as np
+from tqdm import tqdm
 
 from .core.input_types import TokenizedData, InputSpecification
 from .core.input_providers import InputProvider, create_input_provider
@@ -60,19 +61,30 @@ class UnifiedTokenizerAnalyzer:
             faceted_plots: Whether to generate faceted plots (one subplot per tokenizer)
         """
         # Validate input provider
-        validation_report = InputValidator.validate_input_provider(input_provider)
-        if not validation_report['valid']:
-            logger.error("Input provider validation failed:")
-            for error in validation_report['errors']:
-                logger.error(f"  - {error}")
-            raise ValueError("Invalid input provider configuration")
+        if False:
+            validation_report = InputValidator.validate_input_provider(input_provider)
+            if not validation_report['valid']:
+                logger.error("Input provider validation failed:")
+                for error in validation_report['errors']:
+                    logger.error(f"  - {error}")
+                raise ValueError("Invalid input provider configuration")
         
         self.input_provider = input_provider
-        self.tokenizer_names = input_provider.get_tokenizer_names()
+        self.faceted_plots = faceted_plots
+        self.per_language_plots = per_language_plots
+        self.morphscore_config = morphscore_config
+        self.show_global_lines = show_global_lines
+        self.morphological_config = morphological_config
         self.measurement_config = measurement_config or DEFAULT_TEXT_MEASUREMENT_CONFIG
         self.language_metadata = language_metadata
         self.plot_save_dir = plot_save_dir
         
+        if isinstance(input_provider, list):
+            list_of_lists = [x.get_tokenizer_names() for x in input_provider]
+            self.tokenizer_names = [item for sublist in list_of_lists for item in sublist]
+        else:
+            self.tokenizer_names = input_provider.get_tokenizer_names()
+
         # Handle plot tokenizer filtering
         if plot_tokenizers:
             # Validate that specified tokenizers exist
@@ -83,50 +95,22 @@ class UnifiedTokenizerAnalyzer:
         else:
             self.plot_tokenizers = self.tokenizer_names
         
-        # Initialize metrics classes
-        self.basic_metrics = BasicTokenizationMetrics(
-            input_provider, measurement_config, language_metadata
-        )
-        
-        # Initialize information-theoretic metrics
-        self.info_metrics = InformationTheoreticMetrics(
-            input_provider, measurement_config=measurement_config, language_metadata=language_metadata
-        )
-        
-        # Initialize Gini metrics
-        self.gini_metrics = TokenizerGiniMetrics(
-            input_provider, measurement_config=measurement_config, language_metadata=language_metadata
-        )
-        
-        # Initialize morphological metrics if config provided
-        self.morphological_metrics = None
-        if morphological_config:
-            self.morphological_metrics = MorphologicalMetrics(
-                input_provider, morphological_config=morphological_config
-            )
-        
-        # Initialize MorphScore metrics if config provided
-        self.morphscore_metrics = None
-        if morphscore_config:
-            try:
-                self.morphscore_metrics = MorphScoreMetrics(
-                    input_provider, 
-                    **morphscore_config
-                )
-            except (ImportError, ValueError) as e:
-                logger.warning(f"MorphScore metrics disabled: {e}")
-                self.morphscore_metrics = None
-        
-        # Initialize visualizer
-        self.visualizer = TokenizerVisualizer(self.plot_tokenizers, plot_save_dir, show_global_lines, per_language_plots, faceted_plots)
-        
+
         logger.info(f"Initialized unified analyzer with {len(self.tokenizer_names)} tokenizers: {self.tokenizer_names}")
         if len(self.plot_tokenizers) < len(self.tokenizer_names):
             logger.info(f"Plot filtering enabled: {len(self.plot_tokenizers)} tokenizers will be plotted: {self.plot_tokenizers}")
-        for name in self.tokenizer_names:
-            vocab_size = self.input_provider.get_vocab_size(name)
-            logger.info(f"  {name}: {vocab_size} tokens")
+
+        if isinstance(input_provider, list):
+            for x in self.input_provider:
+                for name in x.get_tokenizer_names():
+                    vocab_size = x.get_vocab_size(name)
+                    logger.info(f"  {name}: {vocab_size} tokens")
+        else:
+            for name in self.tokenizer_names:
+                vocab_size = self.input_provider.get_vocab_size(name)
+                logger.info(f"  {name}: {vocab_size} tokens")
     
+
     def run_analysis(self,
                     save_plots: bool = True,
                     include_morphological: bool = True,  
@@ -148,64 +132,122 @@ class UnifiedTokenizerAnalyzer:
         Returns:
             Analysis results dictionary
         """
+
+        def do_the_analysis(input_provider):
+            # Initialize metrics classes
+            self.basic_metrics = BasicTokenizationMetrics(
+                input_provider, self.measurement_config, self.language_metadata
+            )
+            
+            # Initialize information-theoretic metrics
+            self.info_metrics = InformationTheoreticMetrics(
+                input_provider, measurement_config=self.measurement_config, language_metadata=self.language_metadata
+            )
+            
+            # Initialize Gini metrics
+            self.gini_metrics = TokenizerGiniMetrics(
+                input_provider, measurement_config=self.measurement_config, language_metadata=self.language_metadata
+            )
+            
+            # Initialize morphological metrics if config provided
+            self.morphological_metrics = None
+            if self.morphological_config:
+                self.morphological_metrics = MorphologicalMetrics(
+                    input_provider, morphological_config=self.morphological_config
+                )
+            
+            # Initialize MorphScore metrics if config provided
+            self.morphscore_metrics = None
+            if self.morphscore_config:
+                try:
+                    self.morphscore_metrics = MorphScoreMetrics(
+                        input_provider, 
+                        **self.morphscore_config
+                    )
+                except (ImportError, ValueError) as e:
+                    logger.warning(f"MorphScore metrics disabled: {e}")
+                    self.morphscore_metrics = None
+            
+            # Initialize visualizer
+            self.visualizer = TokenizerVisualizer(self.plot_tokenizers, self.plot_save_dir, self.show_global_lines, self.per_language_plots, self.faceted_plots)
+            
+    
+            tokenized_data = input_provider.get_tokenized_data()
+            tokenized_data = {x:list(tqdm(y)) for x,y in tokenized_data.items()}
+            results = {}
+            
+            # Run basic tokenization metrics
+            logger.info("Computing basic tokenization metrics...")
+            basic_results = self.basic_metrics.compute(tokenized_data)
+            results.update(basic_results)
+            
+            if verbose:
+                self._print_basic_results(basic_results)
+            
+            # Run information-theoretic metrics
+            logger.info("Computing information-theoretic metrics...")
+            info_results = self.info_metrics.compute(tokenized_data)
+            results.update(info_results)
+            
+            # Run Gini metrics
+            logger.info("Computing Gini metrics...")
+            gini_results = self.gini_metrics.compute(tokenized_data)
+            results.update(gini_results)
+            
+            # Run morphological metrics if available
+            if self.morphological_metrics and include_morphological:
+                logger.info("Computing morphological metrics...")
+                morphological_results = self.morphological_metrics.compute(tokenized_data)
+                results.update(morphological_results)
+                
+                if verbose:
+                    self.morphological_metrics.print_results(morphological_results)
+            
+            # Run MorphScore metrics if available
+            if self.morphscore_metrics and include_morphscore:
+                logger.info("Computing MorphScore metrics...")
+                morphscore_results = self.morphscore_metrics.compute(tokenized_data)
+                results.update(morphscore_results)
+                
+                if verbose:
+                    self.morphscore_metrics.print_results(morphscore_results)
+            
+            # Save tokenized data if requested
+            if save_tokenized_data:
+                if not tokenized_data_path:
+                    tokenized_data_path = f"{self.plot_save_dir}/tokenized_data.pkl"
+                self._save_tokenized_data(tokenized_data, tokenized_data_path)
+            
+            logger.info("Analysis completed successfully!")
+            return results
+
         logger.info("Starting unified tokenizer analysis...")
-        
-        tokenized_data = self.input_provider.get_tokenized_data()
-        languages = self.input_provider.get_languages()
-        
-        logger.info(f"Analyzing {len(languages)} languages: {languages}")
-        logger.info(f"Tokenizers: {self.tokenizer_names}")
-        
-        results = {}
-        
-        # Run basic tokenization metrics
-        logger.info("Computing basic tokenization metrics...")
-        basic_results = self.basic_metrics.compute(tokenized_data)
-        results.update(basic_results)
-        
-        if verbose:
-            self._print_basic_results(basic_results)
-        
-        # Run information-theoretic metrics
-        logger.info("Computing information-theoretic metrics...")
-        info_results = self.info_metrics.compute(tokenized_data)
-        results.update(info_results)
-        
-        # Run Gini metrics
-        logger.info("Computing Gini metrics...")
-        gini_results = self.gini_metrics.compute(tokenized_data)
-        results.update(gini_results)
-        
-        # Run morphological metrics if available
-        if self.morphological_metrics and include_morphological:
-            logger.info("Computing morphological metrics...")
-            morphological_results = self.morphological_metrics.compute(tokenized_data)
-            results.update(morphological_results)
-            
-            if verbose:
-                self.morphological_metrics.print_results(morphological_results)
-        
-        # Run MorphScore metrics if available
-        if self.morphscore_metrics and include_morphscore:
-            logger.info("Computing MorphScore metrics...")
-            morphscore_results = self.morphscore_metrics.compute(tokenized_data)
-            results.update(morphscore_results)
-            
-            if verbose:
-                self.morphscore_metrics.print_results(morphscore_results)
-        
-        # Save tokenized data if requested
-        if save_tokenized_data:
-            if not tokenized_data_path:
-                tokenized_data_path = f"{self.plot_save_dir}/tokenized_data.pkl"
-            self._save_tokenized_data(tokenized_data, tokenized_data_path)
-        
+        if not isinstance(self.input_provider, list):
+            results = do_the_analysis(self.input_provider)
+        else:
+            results_multi = [do_the_analysis(x) for x in self.input_provider]
+            combined = {}
+
+            for d in results_multi:
+                for metric, metric_data in d.items():
+                    if metric not in combined:
+                        # shallow copy to start
+                        combined[metric] = {
+                            'per_tokenizer': {},
+                            'per_language': metric_data.get('per_language', {}),
+                            'pairwise_comparisons': metric_data.get('pairwise_comparisons', {}),
+                            'metadata': metric_data.get('metadata', {})
+                        }
+
+                    # merge per_tokenizer entries
+                    for tok_name, tok_data in metric_data.get('per_tokenizer', {}).items():
+                        combined[metric]['per_tokenizer'][tok_name] = tok_data
+
+            results = combined
         # Generate plots
         if save_plots:
             logger.info("Generating plots...")
             self.visualizer.generate_all_plots(results, print_pairwise=False)
-        
-        logger.info("Analysis completed successfully!")
         return results
     
     def run_grouped_analysis(self,

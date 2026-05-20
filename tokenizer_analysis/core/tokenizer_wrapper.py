@@ -22,13 +22,7 @@ from custom.mire_norm import normalize_MiRe
 
 _CUSTOM_PREPROCESS: Dict[str, type] = {
     'srna': SrnaTokenizer().prepare_for_tokenization,
-    'morfotok': preprocess1,
-    'morfotok2': preprocess2,
-    'mire' : normalize_MiRe,
-}
-
-_CUSTOM_POSTPROCESS: Dict[str, type] = {
-    'srna': SrnaTokenizer().prepare_for_tokenization,
+    'srnaCF': SrnaTokenizer().prepare_for_tokenizationCF,
     'morfotok': preprocess1,
     'morfotok2': preprocess2,
     'mire' : normalize_MiRe,
@@ -672,6 +666,7 @@ _TOKENIZER_REGISTRY: Dict[str, type] = {
     'custom_bpe': CustomBPETokenizer,
     'sentencepiece': SentencePieceTokenizer,
     'srna': HuggingFaceTokenizer,
+    'srnaCF': HuggingFaceTokenizer,
     'morfotok': HuggingFaceTokenizer,
     'morfotok2': HuggingFaceTokenizer,
     'mire': HuggingFaceTokenizer

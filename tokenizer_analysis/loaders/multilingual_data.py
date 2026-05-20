@@ -4,6 +4,7 @@ Handles both directories and direct file paths specified in config.
 """
 
 import os
+from tqdm import tqdm
 import json
 import glob
 import logging
@@ -331,7 +332,7 @@ def load_from_text(text_file: str, max_texts: int) -> List[str]:
         with open(text_file, 'r', encoding=DEFAULT_ENCODING, errors=FileFormats.ERROR_HANDLING) as f:
 
             texts = []
-            for i, line in enumerate(f):
+            for i, line in tqdm(enumerate(f)):
                 if i >= max_texts:
                     break
                 content = normalize_text_for_processing(line)

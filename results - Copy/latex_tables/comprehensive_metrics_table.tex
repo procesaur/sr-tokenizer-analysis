@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Comprehensive Tokenizer Analysis}
+\label{tab:comprehensive_metrics}
+% Requires \usepackage{makecell} in preamble
+\begin{tabular}{lcccccccccccc}
+\toprule
+Tokenizer & Fertility & \makecell{Vocab \\ Utilization} & \makecell{Type-Token \\ Ratio} & \makecell{Rényi Entropy \\ ($\alpha$=1)} & \makecell{Rényi Entropy \\ ($\alpha$=2.5)} & \makecell{Gini \\ Coefficient} & \makecell{MorphScore \\ Recall} & \makecell{MorphScore \\ Precision} & Avg Token Rank & Token Length & Tokens per Line & \makecell{Compression \\ Ratio} \\
+\midrule
+qwen3.5 & 0.335 & 11.4\% & 0.0087 & 10.58 & \textbf{7.66} & \textbf{0.000} & 0.312 & 0.126 & 989.8 & 2.92 & 324.5 & 0.0067 \\
+mistral & 0.329 & 19.7\% & 0.0081 & 10.60 & 7.63 & 0.000 & 0.292 & 0.111 & \textbf{958.3} & 2.97 & 318.5 & 0.0068 \\
+modernbertic & 0.235 & 84.4\% & \textbf{0.0188} & \textbf{11.81} & 6.86 & 0.000 & 0.781 & \textbf{0.761} & 3664.1 & 4.26 & 225.8 & 0.0096 \\
+bpe & 0.236 & \textbf{95.8\%} & 0.0126 & 11.72 & 6.88 & 0.000 & 0.712 & 0.689 & 3042.5 & 4.23 & 227.6 & 0.0097 \\
+ts\_bpe & \textbf{0.233} & 94.0\% & 0.0125 & 11.66 & 6.82 & 0.000 & 0.716 & 0.689 & 3005.6 & \textbf{4.29} & 224.9 & \textbf{0.0098} \\
+MiRe\_bpe\_control & 0.293 & 87.3\% & 0.0091 & 10.06 & 5.95 & 0.000 & 0.758 & 0.399 & 1521.0 & 3.44 & 286.6 & 0.0079 \\
+MiRe\_bpe & 0.289 & 86.0\% & 0.0092 & 9.98 & 5.86 & 0.000 & 0.754 & 0.397 & 1477.2 & 3.45 & 281.3 & 0.0079 \\
+MiRe\_bpe\_mien & 0.293 & 87.7\% & 0.0092 & 10.07 & 5.95 & 0.000 & 0.758 & 0.399 & 1529.0 & 3.44 & 286.6 & 0.0079 \\
+MiRe\_bpe\_control2 & 0.293 & 87.0\% & 0.0091 & 10.06 & 5.94 & 0.000 & 0.757 & 0.399 & 1513.6 & 3.44 & 286.5 & 0.0079 \\
+srna & 0.243 & 93.1\% & 0.0119 & 11.26 & 6.23 & 0.000 & 0.668 & 0.644 & 2788.9 & 4.12 & 234.0 & 0.0094 \\
+srna2 & 0.239 & 93.1\% & 0.0122 & 11.42 & 6.74 & 0.000 & 0.668 & 0.644 & 2840.1 & 4.20 & 229.8 & 0.0095 \\
+Morfotok\_base & 0.367 & 84.1\% & 0.0071 & 8.65 & 2.84 & 0.000 & 0.794 & 0.653 & 1569.8 & 2.68 & 356.7 & 0.0062 \\
+Morfotok & 0.367 & 84.1\% & 0.0071 & 8.65 & 2.84 & 0.000 & 0.794 & 0.653 & 1569.9 & 2.68 & 356.7 & 0.0062 \\
+MorfotokCF & 0.405 & 81.9\% & 0.0063 & 8.29 & 3.12 & 0.000 & \textbf{0.841} & 0.665 & 1276.0 & 2.45 & \textbf{391.5} & 0.0056 \\
+\bottomrule
+\end{tabular}
+\end{table}

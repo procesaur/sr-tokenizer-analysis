@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\centering
+\caption{Basic Tokenization Metrics}
+\label{tab:basic_metrics}
+% Requires \usepackage{makecell} in preamble
+\begin{tabular}{lccccc}
+\toprule
+Tokenizer & Fertility & \makecell{Vocab \\ Utilization} & \makecell{Type-Token \\ Ratio} & Token Length & Tokens per Line \\
+\midrule
+qwen3.5 & 0.335 & 11.4\% & 0.0087 & 2.92 & 324.5 \\
+mistral & 0.329 & 19.7\% & 0.0081 & 2.97 & 318.5 \\
+modernbertic & 0.235 & 84.4\% & \textbf{0.0188} & 4.26 & 225.8 \\
+bpe & 0.236 & \textbf{95.8\%} & 0.0126 & 4.23 & 227.6 \\
+ts\_bpe & \textbf{0.233} & 94.0\% & 0.0125 & \textbf{4.29} & 224.9 \\
+MiRe\_bpe\_control & 0.293 & 87.3\% & 0.0091 & 3.44 & 286.6 \\
+MiRe\_bpe & 0.289 & 86.0\% & 0.0092 & 3.45 & 281.3 \\
+MiRe\_bpe\_mien & 0.293 & 87.7\% & 0.0092 & 3.44 & 286.6 \\
+MiRe\_bpe\_control2 & 0.293 & 87.0\% & 0.0091 & 3.44 & 286.5 \\
+srna & 0.243 & 93.1\% & 0.0119 & 4.12 & 234.0 \\
+srna2 & 0.239 & 93.1\% & 0.0122 & 4.20 & 229.8 \\
+Morfotok\_base & 0.367 & 84.1\% & 0.0071 & 2.68 & 356.7 \\
+Morfotok & 0.367 & 84.1\% & 0.0071 & 2.68 & 356.7 \\
+MorfotokCF & 0.405 & 81.9\% & 0.0063 & 2.45 & \textbf{391.5} \\
+\bottomrule
+\end{tabular}
+\end{table}

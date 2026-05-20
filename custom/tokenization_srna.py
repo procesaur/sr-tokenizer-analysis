@@ -66,6 +66,16 @@ class SrnaTokenizer():
         self.CYR_FIND = rf"{regex.escape(self.boc_token)}(.*?){regex.escape(self.eoc_token)}"
 
     def prepare_for_tokenization(self, text: str, is_split_into_words=False, **kwargs):
+        def wrap_and_transliterate(match):
+            cyr_text = match.group(0)
+            latin_text = cyr2lat(cyr_text)
+            return f"{self.boc_token}{latin_text}{self.eoc_token}"
+
+        text = regex.sub(self.CYRILLIC_REGEX, wrap_and_transliterate, text)
+        text = regex.sub(self.CLEANUP_FIND, self.CLEANUP_REPLACE, text)
+        return text
+
+    def prepare_for_tokenizationCF(self, text: str, is_split_into_words=False, **kwargs):
         def mark_cap(match):
             return f"{self.cap_token}{match.group(0).lower()}"
 
