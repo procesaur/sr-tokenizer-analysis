@@ -72,7 +72,7 @@ def batch_iterator(dataset, batch_size=10000, fn=None):
 
 def train_bpe(dataset, latin=True):
     tokenizer = Tokenizer(models.BPE(ignore_merges=True))
-    tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=False)
+    tokenizer.pre_tokenizer = pre_tokenizers.ByteLevel(add_prefix_space=True)
     tokenizer.add_special_tokens(special_tokens)
     tokenizer.decoder = decoders.ByteLevel(add_prefix_space=True, trim_offsets=True, use_regex=True)
 
@@ -144,8 +144,6 @@ def build_MiRe_bpe(dataset, cutoffs, latin=True):
 
 
 if __name__ == "__main__":
-    # HR_inspect(dataset, x, merge=True) # Find cutoffs
-    # HR_inspect(dataset, x, merge=False) # Find cutoffs
     cutoffs = {
         "_control":768,
         "": 291,
@@ -156,10 +154,10 @@ if __name__ == "__main__":
     latins = [True, False]
     for x in latins:
         dataset = get_dataset(latin=x)
-        #dataset = dataset.select(range(2000))
+        
 
-        #train_bpe(dataset, latin=x)
-        #train_srna(dataset, latin=x)
-        #train_ts_bpe(dataset, latin=x)
+        train_bpe(dataset, latin=x)
+        train_srna(dataset, latin=x)
+        train_ts_bpe(dataset, latin=x)
         build_MiRe_bpe(dataset, cutoffs, latin=x)
       
