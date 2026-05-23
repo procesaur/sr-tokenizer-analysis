@@ -359,7 +359,12 @@ FOREIGN_TERM_DICT: frozenset = frozenset({
 
 
 def _detect_inline_latin(word_lower: str) -> bool:
-    """Return True if *word_lower* (already lowercased) should stay Latin."""
+    """Return True if *word_lower* (already lowercased) should stay Latin.
+
+    Heuristic fallback used only when the per-word original-script mask is not
+    available (see :func:`_latin_origin_mask`).  Source-driven marking is
+    strictly more accurate; this is retained for backward compatibility.
+    """
     if any(ch in _NON_SR_LATIN for ch in word_lower):
         return True
     if word_lower in FOREIGN_TERM_DICT:
@@ -369,13 +374,50 @@ def _detect_inline_latin(word_lower: str) -> bool:
     return False
 
 
-def _insert_lat_markers(text: str) -> str:
+def _is_latin_origin(word: str) -> bool:
+    """True if *word*'s alphabetic core is Latin (and contains no Cyrillic).
+
+    Decided on the ORIGINAL (pre-transliteration) word, so an embedded foreign
+    term in a Cyrillic-dominant document is recognised exactly rather than
+    guessed.  Words containing any Cyrillic are treated as Cyrillic-origin
+    (mixed-script-within-a-word can't be represented by a word-level tag).
+    """
+    _, core, _ = _split_punctuation(word)
+    if not core:
+        return False
+    if _CYR_RE.search(core):
+        return False
+    return bool(_LAT_ALPHA_RE.search(core))
+
+
+def _latin_origin_mask(text: str) -> List[bool]:
+    """Per-position Latin-origin flags for ``text.split(' ')`` (pre-translit).
+
+    Word count and order are preserved by both transliteration (char-level) and
+    casing normalisation (split/rejoin on ' '), so this mask aligns positionally
+    with the tokens iterated in :func:`_insert_lat_markers`.
+    """
+    out: List[bool] = []
+    for w in text.split(" "):
+        if not w or _PLACEHOLDER_RE.fullmatch(w):
+            out.append(False)
+        else:
+            out.append(_is_latin_origin(w))
+    return out
+
+
+def _insert_lat_markers(text: str, latin_origin: Optional[List[bool]] = None) -> str:
     """
     Scan words in *text* (already case-normalised and transliterated to Latin).
     Prepend <|LAT|> before any word that should stay Latin in a
     Cyrillic-context document.
 
     Only called when the source document was Cyrillic.
+
+    *latin_origin*, when provided, is the positional mask from
+    :func:`_latin_origin_mask` computed on the pre-transliteration text; a word
+    is marked iff it was originally Latin.  This is exact.  When the mask is
+    absent the legacy :func:`_detect_inline_latin` heuristic is used.
 
     Handles both space-separated tags (legacy) and space-free merged tags
     (current factored format where <|CAP|>radnik is a single token after
@@ -384,7 +426,7 @@ def _insert_lat_markers(text: str) -> str:
     tokens = text.split(" ")
     result: List[str] = []
 
-    for tok in tokens:
+    for idx, tok in enumerate(tokens):
         if not tok:
             result.append("")
             continue
@@ -418,9 +460,13 @@ def _insert_lat_markers(text: str) -> str:
             word_remainder = after_case[pos_end:]
 
         if word_remainder:
-            _, core, _ = _split_punctuation(word_remainder)
-            core_lower = core.lower()
-            if core_lower and _detect_inline_latin(core_lower):
+            if latin_origin is not None:
+                keep_latin = idx < len(latin_origin) and latin_origin[idx]
+            else:
+                _, core, _ = _split_punctuation(word_remainder)
+                core_lower = core.lower()
+                keep_latin = bool(core_lower) and _detect_inline_latin(core_lower)
+            if keep_latin:
                 result.append(casing_prefix + TOK_LAT + word_remainder)
             else:
                 result.append(tok)  # keep original
@@ -474,6 +520,10 @@ def preprocess(
     # Step 1: detect script on non-protected remainder.
     script = _detect_script(text)
 
+    # Step 1b: capture each word's ORIGINAL script before we transliterate, so
+    # embedded Latin terms can be marked <|LAT|> exactly (not heuristically).
+    latin_origin = _latin_origin_mask(text) if script == "cyrillic" else None
+
     # Step 2: transliterate Cyrillic → Latin.
     if script == "cyrillic":
         text = _to_latin(text)
@@ -484,7 +534,7 @@ def preprocess(
 
     # Step 4: insert inline <|LAT|> markers (Cyrillic context only).
     if script == "cyrillic":
-        text = _insert_lat_markers(text)
+        text = _insert_lat_markers(text, latin_origin)
 
     # Step 5: prepend document-level <|CYR|>.
     # No space after CYR — the word immediately following is naturally
